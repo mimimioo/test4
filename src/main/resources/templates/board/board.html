@@ -9,10 +9,10 @@
 <div layout:fragment="content">
 <div class="board_container">
     <div class="board_info">
-        <div class="title">제목입니다</div>
-        <div class="user">작성자</div>
+        <div class="title" th:text="${board}">제목입니다</div>
+        <div class="user" th:text="게시글dto 작성자 받아오기">작성자</div>
         <div class="created_date">2023.01.01</div>
-        <a href="#" class="like">10000</a>
+        <a href="#" class="like" th:if="${board}=='user'">10000</a>
     </div>
     <div class="content">
 
