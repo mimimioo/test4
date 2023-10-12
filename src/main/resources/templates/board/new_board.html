@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/baseLayout.html}">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/new_board.css}"/>
+</th:block>
+<div layout:fragment="content" class="new_board">
+<div class="form_wrapper">
+    <h2 class="head_title">글쓰기</h2>
+    <form action="#" method="post" enctype="multipart/form-data">
+        <div class="form_data">제목 <input type="text" name="title" id="title"></div>
+        <div class="form_data content">내용 <input type="text" name="content" id="content"></div>
+        <div class="form_data image">이미지 업로드 <input type="file" name="itemImgFile"></div>
+    </form>
+</div>
+
+</div>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="stylesheet" th:href="@{/css/createAccount.css}"/>
+<body id="top">
+<div th:fragment="header">
+    <div class="header_top">
+        <div class="header_login_wrapper">
+            <button class="header_login">
+                <img th:src="@{/images/free-icon-menu-1828859.png}" class="menu_icon">
+                <img th:src="@{/images/free-icon-profile-4675250.png}" class="profile_icon">
+                <div class="login_box">
+                    <a href="/login.html" id="goto_login">로그인</a>
+                    <a href="/createAccount.html" id="goto_join">회원가입</a>
+                    <!-- 로그인 후 DM, 회원정보로 바꾸기 -->
+                </div>
+                <div class="square"></div>
+            </button>
+        </div>
+
+        <h1 class="header_title">REVIEW LOG</h1>
+
+        <div class="header_search_wrapper">
+            <button class="header_search">
+                <img th:src="@{/images/free-icon-menu-1828859.png}" class="menu_icon">
+                <div class="search_icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="search_box">
+                    <form action="#" method="get" class="search_box_form">
+                        <label class="search_flex" for="category"><span>카테고리</span>
+                            <select name="category" id="category">
+                                <option value="all" selected>전체</option>
+                                <option value="#">강서구</option>
+                                <option value="#">동래 + 사상구</option>
+                                <option value="#">북구 + 금정구</option>
+                                <option value="#">기장군</option>
+                                <option value="#">부산진구</option>
+                                <option value="#">사하구 + 영도구 + 남구</option>
+                                <option value="#">광안리</option>
+                                <option value="#">해운대구</option>
+                                <option value="news">공지사항</option>
+                            </select>
+                        </label>
+                        <label class="search_flex" for="search"><span>검색어</span>
+                            <input type="text" id="search">
+                        </label>
+                        <input type="submit" value="검색하기" class="submit">
+                    </form>
+                </div>
+                <div class="square"></div>
+            </button>
+        </div>
+    </div>
+    <div class="header_container">
+
+
+        <div class="header_bottom">
+            <ul class="header_category">
+                <a href="#">
+                    <li class="category"><img th:src="@{/images/강서구.png}"><span>강서구</span></li>
+                </a>
+                <a href="#">
+                    <li class="category"><img th:src="@{/images/사상구_동래구.png}"><span>동래 + 사상구</span></li>
+                </a>
+                <a href="#">
+                    <li class="category"><img th:src="@{/images/금정구_북구.png}"><span>북구 + 금정구</span></li>
+                </a>
+                <a href="#">
+                    <li class="category"><img th:src="@{/images/기장군.png}"><span>기장군</span></li>
+                </a>
+                <a href="#">
+                    <li class="category"><img th:src="@{/images/진구.png}"><span>부산진구</span></li>
+                </a>
+               <a href="#">
+                    <li class="category"><img th:src="@{/images/사하구_영도구_남구.png}"><span>사하구/영도구/남구</span></li>
+                </a>
+                <a href="#">
+                    <li class="category"><img th:src="@{/images/광안리.png}"><span>광안리</span></li>
+                </a>
+                <a href="#">
+                    <li class="category"><img th:src="@{/images/해운대구.png}"><span>해운대구</span></li>
+                </a>
+            </ul>
+        </div>
+    </div>
+    <a href="#top" class="top">TOP</a>
+</div>
+</body>
+</html>
