@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/baseLayout.html}">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</th:block>
+<div layout:fragment="content">
+<div class="board_container">
+    <div class="board_info">
+        <div class="title">제목입니다</div>
+        <div class="user">작성자</div>
+        <div class="created_date">2023.01.01</div>
+        <a href="#" class="like">10000</a>
+    </div>
+    <div class="content">
+
+    </div>
+
+    <div class="comment">
+        <div class="user_info">
+            <div class="profile"><i class="fa-regular fa-user"></i></div>
+            <div class="info">
+                <div class="info_top">
+                    <div class="user_name">홍길동</div>
+                    <div class="comment_date">2023.01.01</div>
+                </div>
+                <div class="info_bottom">
+                    <div class="comment_content">글 잘 보구가요~</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</html>
+<!-- <i class="fa-solid fa-user"></i> -->

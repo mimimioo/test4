@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+
+    <th:block layout:fragment="script"></th:block>
+    <th:block layout:fragment="css"></th:block>
+
+
+    <script src="https://kit.fontawesome.com/a4871d409c.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+</head>
+
+<th:block layout:fragment="css">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0;
+        }
+        .wrapper{
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+    </style>
+</th:block>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments/header::header" class="header"></div>
+    <div layout:fragment="content" class="content"></div>
+</div>
+
+</body>
+</html>
