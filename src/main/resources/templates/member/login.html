@@ -14,23 +14,27 @@
     <a href="/header.html" class="logo">REVIEW LOG</a>
     <h3 class="title">로그인</h3>
     <h5 class="title">REVIEW LOG 계정 사용</h5>
+
     <form role="form" action="/members/login" method="post" name="login_data" class="login_form">
+        <label th:for="email"></label>
         <div class="id_box">
-            <input type="text" id="id" name="id"/>
-            <div class="input_box" id="id_placeholder">아이디를 입력해주세요</div>
+            <input type="email" name="email" class="form-control" placeholder="이메일을 입력해주세요">
+            <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"/>
+<!--            <div class="form-control" id="id_placeholder">이메일을 입력해주세요</div>-->
 <!--            <p class="input_alert" id="id_alert">아이디를 입력해주세요.</p>-->
         </div>
         <div class="pw_box">
-            <input type="password" id="pw" name="pw"/>
-            <div class="input_box" id="pw_placeholder">비밀번호를 입력해주세요.</div>
+            <label th:for="password"></label>
+<!--            <input type="password" id="pw" name="pw"/>-->
+            <input type="password" name="password" id="password" class="form-control" placeholder="비밀번호 입력">
+<!--            <div class="input_box" id="pw_placeholder">비밀번호를 입력해주세요.</div>-->
 <!--            <p class="input_alert" id="pw_alert">패스워드를 입력해주세요.</p>-->
         </div>
-        <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
         <div class="btn_wrapper">
             <button class="btn btn-primary" type="button" onClick="location.href='/members/new'">회원가입</button>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-            <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
             <button class="btn btn-primary" >로그인</button>
+
         </div>
     </form>
 </div>
