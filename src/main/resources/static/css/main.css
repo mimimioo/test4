@@ -8,10 +8,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 100%;
+    width: calc(100% - 60px);
     margin: 30px;
     padding: 20px;
     box-shadow: 0 0 2px 0 rgb(250, 100, 100);
+    z-index: 1;
 }
 .main_title {
     padding: 10px 5%;

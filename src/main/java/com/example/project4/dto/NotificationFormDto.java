@@ -21,15 +21,20 @@ public class NotificationFormDto {
     @NotNull(message = "내용을 입력해주세요.")
     private String content;
 
-    private String view_count;
+    private String createBy;
 
-    private String like_count;
+    private String reg_time;
+
+    private Long view_count;
+
+    private Long like_count;
+
+    private boolean isLiked;
 
     /*엔티티와 dto 매핑을 지원해주는 매퍼 인스턴스 생성*/
     private static ModelMapper modelMapper = new ModelMapper();
 
     public Notification createNotification(){
-
         return modelMapper.map(this, Notification.class);
     }
 
