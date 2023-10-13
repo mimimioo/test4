@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/baseLayout.html}">
+
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/new_board.css}"/>
+</th:block>
+<div layout:fragment="content" class="new_board">
+<div class="form_wrapper">
+    <h2 th:if="${board}==notice" class="head_title">공지사항 작성페이지</h2>
+    <form th:if="${board}==notice" action="/admin/notificationBoard/new" method="post" th:object="${notificationFormDto}">
+        <div class="form_data">제목 <input type="text" name="title" id="title" th:field="*{title}"></div>
+        <div class="form_data content">내용 <input type="text" name="content" id="content" th:field="*{content}"></div>
+        <input type="submit" value="등록하기"/>
+    </form>
+
+    <h2 th:if="${board}==update_notice" class="head_title">공지사항 수정페이지</h2>
+    <form th:if="${board}==update_notice" action="/admin/notificationBoard/new" method="post" th:object="${notificationFormDto}">
+        <div class="form_data">제목 <input type="text" name="title" id="title" th:field="*{title}" th:value="${notificationFormDto.getTitle()}"></div>
+        <div class="form_data content">내용 <input type="text" name="content" id="content" th:field="*{content}" th:value="${notificationFormDto.getContent()}"></div>
+        <input type="submit" value="수정하기"/>
+    </form>
+</div>
+
+</div>
+</html>
