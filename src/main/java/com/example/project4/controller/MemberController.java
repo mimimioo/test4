@@ -35,12 +35,18 @@ public class MemberController {
         }
         try{
             Member member = Member.createMember(memberFormDto, passwordEncoder);
+            memberService.saveMember(member);
         }
         catch (IllegalStateException e){
             model.addAttribute("erroMessage", e.getMessage());
             return "member/createAccount";
         }
         return "redirect:/";
+    }
+    @GetMapping(value="/new/error")
+    public  String createError(Model model){
+        model.addAttribute("createErrorMsg", "비밀번호를 맞게 입력해주세요");
+        return "member/createAccount";
     }
 
     @GetMapping(value = "/login")
@@ -50,7 +56,7 @@ public class MemberController {
     @GetMapping(value = "/login/error")
     public String loginError(Model model){
      model.addAttribute("loginErrorMsg", "아이디 혹은 비밀번호를 맞게 입력해주세요");
-     return "/member/login";
+     return "member/login";
     }
 
 
