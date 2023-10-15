@@ -38,11 +38,11 @@ body{
     flex-direction: column; 
     /* align-items: center; */
 }
-.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box { 
+.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box, .zip_box, .detail_box{
     position: relative;
     margin-bottom: 20px;
 }
-:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box) .input_box {
+:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box,.zip_box, .detail_box) .input_box {
     width: 100%;
     height: 100%;
     top: 0;
@@ -54,19 +54,19 @@ body{
     pointer-events: none;
     gap: 5px;
 }
-:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box) input {
+:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box, .zip_box, .detail_box) input {
     width: 100%;
     padding: 10px;
     border: 1px solid #bbb;
     border-radius: 4px;
     box-shadow: none;
 }
-:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box) input:focus {
+:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box, .zip_box, .detail_box) input:focus {
     border: 1px solid dodgerblue;
     box-shadow: 0 0 3px 0 rgb(120, 180, 255);
     outline:none;
 }
-:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box) .input_box {
+:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box, .zip_box, .detail_box) .input_box {
     color: #aaa;
     position: absolute;
     height: 20px;
@@ -75,7 +75,7 @@ body{
     pointer-events: none;
     transition: 0.3s;
 }
-:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box) .input_box.focused{
+:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box, .zip_box, .detail_box) .input_box.focused{
     background-color: #fff;
     height: 15px;
     width: auto;
