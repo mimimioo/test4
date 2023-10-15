@@ -45,14 +45,14 @@
             <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
             <!--            <p class="input_alert" id="pw_alert">패스워드를 입력해주세요.</p>-->
         </div>
-        <!--        <div class="pw_confirm_box">-->
-        <!--            <div class="tooltip hidden" id="tooltip_pwC"></div>-->
-        <!--            <input type="password" id="pw_confirm" name="pw_confirm">-->
-        <!--            <label th:for="confirmPassword" th:field="*{confirmPassword}" class="input_box" id="pw_C_placeholder">비밀번호를 확인해 주세요</label>-->
-        <!--&lt;!&ndash;            <div class="input_box" id="pw_C_placeholder">비밀번호를 다시 입력해주세요.</div>&ndash;&gt;-->
-        <!--            <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="fieldError">Incorrect data</p>-->
-        <!--&lt;!&ndash;            <p class="input_alert" id="pw_alert">패스워드가 일치하지 않습니다.</p>&ndash;&gt;-->
-        <!--        </div>-->
+                <div class="pw_confirm_box">
+                    <div class="tooltip hidden" id="tooltip_pwC"></div>
+                    <input type="password" id="pw_confirm" name="pw_confirm">
+                    <label th:for="confirmPassword"  class="input_box" id="pw_C_placeholder">비밀번호를 확인해 주세요</label>
+        <!--            <div class="input_box" id="pw_C_placeholder">비밀번호를 다시 입력해주세요.</div>-->
+<!--                    <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="fieldError">Incorrect data</p>-->
+        <!--            <p class="input_alert" id="pw_alert">패스워드가 일치하지 않습니다.</p>-->
+                </div>
 
         <div class="name_box">
 <!--            <label th:for="name"></label>-->
@@ -62,6 +62,16 @@
             <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
 <!--            <p class="input_alert" id="name_alert">이름을 입력해주세요.</p>-->
         </div>
+
+        <div class="zip_box">
+            <div class="tooltip hidden" id="tooltip_Zipcode"></div>
+            <!--            <label th:for="address"></label>-->
+            <input type="text" id="zipCode" name="zipCode"/>
+            <label th:for="zipCode" th:field="*{zipCode}" class="input_box" id="zipcode_placeholder">우편번호를 입력해주세요</label>
+            <p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" class="fieldError">Incorrect data</p>
+            <!--            <p class="input_alert" id="id_alert">아이디를 입력해주세요.</p>-->
+        </div>
+
         <div class="id_box">
             <div class="tooltip hidden" id="tooltip_Address"></div>
 <!--            <label th:for="address"></label>-->
@@ -70,6 +80,16 @@
             <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect data</p>
 <!--            <p class="input_alert" id="id_alert">아이디를 입력해주세요.</p>-->
         </div>
+
+        <div class="detail_box">
+            <div class="tooltip hidden" id="tooltip_detail"></div>
+            <!--            <label th:for="address"></label>-->
+            <input type="text" id="detail_Address" name="detail_Address"/>
+            <label th:for="detail_Address" th:field="*{detail_Address}" class="input_box" id="detail_placeholder">상세주소를 입력해주세요</label>
+            <p th:if="${#fields.hasErrors('detail_Address')}" th:errors="*{detail_Address}" class="fieldError">Incorrect data</p>
+            <!--            <p class="input_alert" id="id_alert">아이디를 입력해주세요.</p>-->
+        </div>
+
 
 
         <div class="btn_wrapper">

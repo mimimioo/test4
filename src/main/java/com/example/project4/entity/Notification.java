@@ -34,8 +34,8 @@ public class Notification extends BaseEntity {
     @Column(name="likes")
     private Long like_count;    //좋아요 수
 
-    @OneToMany(mappedBy = "notification", cascade = CascadeType.ALL)
-    private List<NoticeLike> likes = new ArrayList<>();
+//    @OneToMany(mappedBy = "notification", cascade = CascadeType.ALL)
+//    private List<NoticeLike> likes = new ArrayList<>();
 
     public void updateEntity(NotificationFormDto notificationFormDto) {
         this.title = notificationFormDto.getTitle();
