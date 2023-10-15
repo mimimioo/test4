@@ -13,7 +13,7 @@
             console.log(notificationId);
         $(document).ready(function () {
             $(likeTag).click(function (event) {
-                // Like 버튼 클릭 시 토글 클래스
+                // NoticeLike 버튼 클릭 시 토글 클래스
                 $(likeTag).toggleClass("pushedLike");
                 // 입력 데이터 가져오기
                 let data = $(likeTag).hasClass("pushedLike") ? -1 : 1;
