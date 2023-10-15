@@ -38,11 +38,14 @@ build/
 .vscode/
 /pom.xml
 /.idea/
-!/.idea/compiler.xml
-!/.idea/encodings.xml
-!/.idea/jarRepositories.xml
-!/.idea/misc.xml
+/.idea/compiler.xml
+/.idea/encodings.xml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
 
-!/.idea/vcs.xml
+/.idea/vcs.xml
 
-!/.idea/workspace.xml
+/.idea/workspace.xml
+/src/main/resources/application.properties
+/src/main/resources/application-test.properties
+/src/main/java/com/example/project4/config/SecurityConfig.java

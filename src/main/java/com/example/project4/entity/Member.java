@@ -5,10 +5,13 @@ import com.example.project4.dto.MemberFormDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.tomcat.jni.Address;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.net.PasswordAuthentication;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "member")
@@ -31,6 +34,8 @@ public class Member extends BaseEntity{
     private int zipCode;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Like> likeList = new ArrayList<>();
 
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){

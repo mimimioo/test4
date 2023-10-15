@@ -22,7 +22,6 @@ public class BoardService {
 
     @Transactional
     public void saveBoard(NotificationFormDto notificationFormDto) {
-        System.out.println(notificationFormDto.getTitle());
         Notification notification = notificationFormDto.createNotification();
         notification.setLike_count(0L);
         notification.setView_count(0L);
