@@ -8,8 +8,8 @@
     <script th:inline="javascript">
         $(document).ready(function() {
             $("#addReview").on("click", function() {
-                var $bestBoard = $(".best_board.flex");
-                var $newReview = $('<div class="review"> \
+                let $bestBoard = $(".best_board.flex");
+                let $newReview = $('<div class="review"> \
             <img src="/images/고양이3 (2).jpg" class="thumbnail" /> \
             <div class="board_info"> \
                 <div class="user">작성자</div> \
@@ -18,7 +18,6 @@
                 <div class="like">10000</div> \
             </div> \
         </div>');
-
                 $bestBoard.append($newReview);
             });
         });
@@ -29,27 +28,27 @@
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </th:block>
 <div layout:fragment="content">
-<body>
     <div class="main_container">
         <h3 class="main_title">인기글</h3>
         <div class="best_board flex">
-            <div class="review">
-                <img src="/images/고양이3 (2).jpg" class="thumbnail" />
+            <div th:each="notice : ${notices.content}" class="review">
+                <a th:href="@{/notificationBoard/__${notice.notificationId}__}">
+                <img th:src="@{/images/고양이3 (2).jpg}" class="thumbnail" />
                 <div class="board_info">
-                    <div class="user">작성자</div>
-                    <div class="title">제목입니다</div>
-                    <div class="created_date">2023.01.01</div>
-                    <div class="like">10000</div>
+                    <div class="user" >작성자</div>
+                    <div class="title" th:text="${notice.title}">제목입니다</div>
+                    <div class="created_date" th:text="${notice.reg_time}">2023.01.01</div>
+                    <div class="like" th:text="${notice.like_count}">10000</div>
                 </div>
+                </a>
             </div>
-            <button id="addReview">요소 추가 테스트</button>
         </div>
+
 
         <h3 class="main_title">최신글</h3>
         <div class="board flex">
 
         </div>
     </div>
-    
-</body>
+</div>
 </html>
