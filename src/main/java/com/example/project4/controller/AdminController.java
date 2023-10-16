@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Map;
 
 
@@ -30,16 +31,16 @@ public class AdminController {
     }
     /*게시글 생성*/
     @PostMapping(value="/admin/notificationBoard/new")
-    public String notificationNew(@Valid NotificationFormDto notificationFormDto, BindingResult bindingResult, Model model) {
-
+    public String notificationNew(@Valid NotificationFormDto notificationFormDto, BindingResult bindingResult, Model model, Principal principal) {
         if(bindingResult.hasErrors()){
             return "board/notice_new_board";
         }
         try {
+            notificationFormDto.setEmail(principal.getName());
             boardService.saveBoard(notificationFormDto);
         } catch (Exception e){
             model.addAttribute("errorMessage", "게시글 등록 중 에러가 발생하였습니다.");
-
+            System.out.println(e);
             return "board/notice_new_board";
         }
 
@@ -50,7 +51,6 @@ public class AdminController {
 @GetMapping(value="/notificationBoard/{notificationId}")
     public String notificationDetail(@PathVariable("notificationId") Long notificationId, Model model) {
         try{
-            System.out.println("실행됨");
             NotificationFormDto notificationFormDto = boardService.notificationDetail(notificationId);
             /* 게시글 조회 시*/
             /* 방문자의 경우 좋아요 표시 빈하트 */

@@ -1,8 +1,10 @@
 package com.example.project4.service;
 
 import com.example.project4.dto.NotificationFormDto;
+import com.example.project4.entity.Member;
 import com.example.project4.entity.Notification;
 import com.example.project4.repository.LikeInfoRepository;
+import com.example.project4.repository.MemberRepository;
 import com.example.project4.repository.Notice_boardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,15 @@ public class BoardService {
     private Notice_boardRepository boardRepository;
     @Autowired
     private LikeInfoRepository likeInfoRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Transactional
     public void saveBoard(NotificationFormDto notificationFormDto) {
         Notification notification = notificationFormDto.createNotification();
+        Member member = memberRepository.findByEmail(notificationFormDto.getEmail());
+        notification.setName(member.getName());
+        System.out.println(notification.getName());
         notification.setLike_count(0L);
         notification.setView_count(0L);
         boardRepository.save(notification);

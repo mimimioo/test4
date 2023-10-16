@@ -14,7 +14,7 @@
                 <a th:href="@{/notificationBoard/__${notice.notificationId}__}">
                 <img th:src="@{/images/고양이3 (2).jpg}" class="thumbnail" />
                 <div class="board_info">
-                    <div class="user" >작성자</div>
+                    <div class="user" th:text="${notice.name}">작성자</div>
                     <div class="title" th:text="${notice.title}">제목입니다</div>
                     <div class="info_date_join">
                         <div class="created_date" th:text="${notice.getFormattedRegTime()}">2023.01.01</div>
