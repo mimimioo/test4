@@ -7,6 +7,9 @@ import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @Getter
 @Setter
@@ -30,6 +33,25 @@ public class NotificationFormDto {
     private Long like_count;
 
     private boolean isLiked;
+
+    public String getFormattedRegTime() {
+        if (this.reg_time != null) {
+            try {
+                // reg_time 필드를 LocalDateTime으로 변환
+                LocalDateTime regTime = LocalDateTime.parse(this.reg_time, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"));
+                // LocalDateTime을 원하는 형식으로 변환
+                String formattedDate = regTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+                return formattedDate;
+            } catch (DateTimeParseException e) {
+                System.out.println("------------------------------------------");
+                System.out.println(e);
+                System.out.println("------------------------------------------");
+                // 유효하지 않은 형식의 경우 처리할 내용 추가
+            }
+        }
+        return ""; // 또는 다른 기본값을 반환할 수 있습니다.
+    }
+
 
     /*엔티티와 dto 매핑을 지원해주는 매퍼 인스턴스 생성*/
     private static ModelMapper modelMapper = new ModelMapper();

@@ -60,8 +60,16 @@
     font-weight: bold;
 
 }
-.created_date{
+.info_date_join {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
     margin-top: auto;
+;
+}
+.created_date, .joinNum{
+    margin-bottom: 2px;
 }
 .like{
     position: absolute;

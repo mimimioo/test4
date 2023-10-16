@@ -15,6 +15,7 @@
                     <a href="/members/login" id="goto_login" sec:authorize="isAnonymous()">로그인</a>
                     <a href="/members/new" id="goto_join" sec:authorize="isAnonymous()">회원가입</a>
                     <a href="/members/logout" id="goto_logout" sec:authorize="isAuthenticated()">로그아웃</a>
+                    <a href="/admin/notificationBoard/new" sec:authorize="isAuthenticated()">글쓰기</a>
 <!--                    <li class="nav-item" sec:authorize="isAnonymous()">-->
 <!--                        <a class="nav-link" href="/members/login" id="goto_login">로그인</a>-->
 <!--                    </li>-->
@@ -27,7 +28,7 @@
             </button>
         </div>
 
-        <h1 class="header_title">REVIEW LOG</h1>
+        <a href="/" style="display: block"><h1 class="header_title">REVIEW LOG</h1></a>
 
         <div class="header_search_wrapper">
             <button class="header_search">

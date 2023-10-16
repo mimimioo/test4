@@ -26,7 +26,7 @@ a {
 .header_top .header_login_wrapper .header_login .login_box:hover{ visibility: visible; }
 
 
-.header_top .header_title { cursor: pointer; font-size: 20px; color: rgb(250, 70, 70); font-family: abster; padding: 12px; border-radius: 3px; text-align: center; width: 40%; }
+.header_top .header_title { cursor: pointer; font-size: 20px; color: rgb(250, 70, 70); font-family: abster; padding: 12px; border-radius: 3px; text-align: center; width: 100%; }
 
 
 .header_top .header_search_wrapper { width: 30%; display: flex; justify-content: end;}

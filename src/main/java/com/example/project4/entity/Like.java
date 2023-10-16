@@ -1,5 +1,7 @@
 package com.example.project4.entity;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,13 +19,8 @@ public class Like {
     @JoinColumn(name = "notification_id")
     private Notification notification;
 
+    @Getter
     @Column(name = "liked")
     private boolean liked;
 
-    public boolean isLiked() {
-        if(this.liked) {
-            return true;
-        } else
-            return false;
-    }
 }
