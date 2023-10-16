@@ -42,7 +42,7 @@
 }
 .like{
     position: absolute;
-    right: 30px;
+    right: 20px;
     top: 20px;
 }
 .like::before {
@@ -52,6 +52,14 @@
 .pushedLike.like::before {
     content: '♥ ︎';
     color: red;
+}
+.info_date_join {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+;
 }
 .comment{
     word-break:break-all;

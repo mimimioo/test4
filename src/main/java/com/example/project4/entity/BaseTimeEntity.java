@@ -23,4 +23,7 @@ public abstract class BaseTimeEntity {
     @LastModifiedDate
     private LocalDateTime updateTime;
 
+    public LocalDateTime getReg_time() {
+        return this.regTime;
+    }
 }

@@ -49,7 +49,11 @@
     <div class="board_info">
         <div class="title" th:text="${notificationFormDto.getTitle()}">제목입니다</div>
         <div class="user" th:text="${notificationFormDto.getCreateBy()}">작성자</div>
-        <div class="created_date" th:text="${notificationFormDto.getReg_time()}">2023.01.01</div>
+        <div class="info_date_join">
+            <div class="created_date" th:text="${notificationFormDto.getFormattedRegTime()}">2023.01.01</div>
+            <div class="joinNum" th:text="${notificationFormDto.getView_count()}"></div>
+        </div>
+
         <a href="#" class="like pushedLike" id="like" th:text="${notificationFormDto.getLike_count()}"> 0</a>
     </div>
     <div class="notice_content" th:text="${notificationFormDto.getContent()}"></div>

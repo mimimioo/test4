@@ -3,27 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/baseLayout.html}">
 
-<th:block layout:fragment="script">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script th:inline="javascript">
-        $(document).ready(function() {
-            $("#addReview").on("click", function() {
-                let $bestBoard = $(".best_board.flex");
-                let $newReview = $('<div class="review"> \
-            <img src="/images/고양이3 (2).jpg" class="thumbnail" /> \
-            <div class="board_info"> \
-                <div class="user">작성자</div> \
-                <div class="title">제목입니다</div> \
-                <div class="created_date">2023.01.01</div> \
-                <div class="like">10000</div> \
-            </div> \
-        </div>');
-                $bestBoard.append($newReview);
-            });
-        });
-    </script>
-</th:block>
-
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </th:block>
@@ -37,7 +16,10 @@
                 <div class="board_info">
                     <div class="user" >작성자</div>
                     <div class="title" th:text="${notice.title}">제목입니다</div>
-                    <div class="created_date" th:text="${notice.reg_time}">2023.01.01</div>
+                    <div class="info_date_join">
+                        <div class="created_date" th:text="${notice.getFormattedRegTime()}">2023.01.01</div>
+                        <div class="created_date joinNum" th:text="'조회 ' + ${notice.view_count}"></div>
+                    </div>
                     <div class="like" th:text="${notice.like_count}">10000</div>
                 </div>
                 </a>
