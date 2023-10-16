@@ -1,7 +1,7 @@
 $(document).ready(function() {
     //입력폼 관련 이벤트 처리(회원가입)
     // const inputID = document.getElementById('id');
-    const inputPW = document.getElementById('pw');
+    const inputPW = document.getElementById('password');
     // const inputPW_C = document.getElementById('pw_confirm');
     const inputEmail = document.getElementById('email');
     // const inputName = document.getElementById('name');

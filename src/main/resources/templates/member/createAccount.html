@@ -56,7 +56,7 @@
 
         <div class="name_box">
 <!--            <label th:for="name"></label>-->
-            <div class="tooltip hidden" id="tooltip_name">입력폼 조건알리미</div>
+            <div class="tooltip hidden" id="tooltip_name"></div>
             <input type="text" id="name" name="name"/>
             <label th:for="name"  class="input_box" id="name_placeholder">이름을 입력해주세요.</label>
             <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
