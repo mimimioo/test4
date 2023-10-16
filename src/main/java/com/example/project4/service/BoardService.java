@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 
 @Service
@@ -23,6 +24,8 @@ public class BoardService {
     private LikeInfoRepository likeInfoRepository;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     @Transactional
     public void saveBoard(NotificationFormDto notificationFormDto) {
@@ -60,8 +63,11 @@ public class BoardService {
     }
 
     public boolean isLike(Long member_id, Long board_id) {
-        Boolean result = likeInfoRepository.findByMemberIdAndBoardId(member_id, board_id);
+        System.out.println("isLike--------------------------");
+        System.out.println("member_id : " + member_id + " board_id : " + board_id);
+        System.out.println("isLike--------------------------");
 
-        return likeInfoRepository.findByMemberIdAndBoardId(member_id, board_id);
+        System.out.println(likeInfoRepository.isLike(member_id, board_id));
+        return likeInfoRepository.isLike(member_id, board_id);
     }
 }

@@ -6,18 +6,14 @@
 <th:block layout:fragment="script">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script th:inline="javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            let notificationId = [[${notificationFormDto.notificationId}]];
-            let likeTag = document.querySelector("#like");
-            console.log(likeTag);
-            console.log(notificationId);
         $(document).ready(function () {
+            var notificationId = [[${notificationFormDto.notificationId}]];
+            var likeTag = document.querySelector("#like");
             $(likeTag).click(function (event) {
-                // NoticeLike 버튼 클릭 시 토글 클래스
-                $(likeTag).toggleClass("pushedLike");
                 // 입력 데이터 가져오기
                 let data = $(likeTag).hasClass("pushedLike") ? -1 : 1;
-
+                // NoticeLike 버튼 클릭 시 토글 클래스
+                $(likeTag).toggleClass("pushedLike");
 
                 // Ajax 요청 설정
                 $.ajax({
@@ -34,7 +30,6 @@
                     }
                 });
             });
-        });
         });
     </script>
 </th:block>
@@ -54,7 +49,7 @@
             <div class="joinNum" th:text="${notificationFormDto.getView_count()}"></div>
         </div>
 
-        <a href="#" class="like pushedLike" id="like" th:text="${notificationFormDto.getLike_count()}"> 0</a>
+        <a href="#" class="like" th:classappend="${isLike} ? 'pushedLike' : ''" id="like" th:text="${notificationFormDto.getLike_count()}"> 0</a>
     </div>
     <div class="notice_content" th:text="${notificationFormDto.getContent()}"></div>
 

@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http.formLogin()
 
                 .loginPage("/members/login")
@@ -44,7 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/", "/members/**", "/item/**", "/images/**", "/notificationBoard/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .mvcMatchers("/members/mypage").permitAll()
+                .mvcMatchers("/notificationBoard/**/like").authenticated()
                 .anyRequest().authenticated()
+
         ;
 
         http.exceptionHandling()
