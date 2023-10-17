@@ -22,6 +22,7 @@ target/
 application.properties
 application-test.properties
 *.properties
+*.gitignore
 
 
 ### NetBeans ###

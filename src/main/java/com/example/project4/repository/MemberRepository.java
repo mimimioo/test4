@@ -4,8 +4,10 @@ import com.example.project4.entity.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.project4.entity.Member;
 
+import java.util.Optional;
+
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    Member findByEmail(String email);
+   Optional <Member> findByEmail(String email);
 
 }
