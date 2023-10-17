@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface LikeInfoRepository extends JpaRepository<Like, Long> {
+import java.util.Optional;
 
-    @Query("SELECT COUNT(l) > 0 FROM Like l WHERE l.member.id = :memberId AND l.notification.notificationId = :boardId")
-    boolean isLike(@Param("memberId") Long memberId, @Param("boardId") Long boardId);
+public interface LikeInfoRepository extends JpaRepository<Like, Long> {
+    @Query("SELECT l FROM Like l WHERE l.member = :member AND l.notification = :notification")
+    Optional<Like> findMemberAndNotification(@Param("member") Member member, @Param("notification") Notification notification);
 
 }

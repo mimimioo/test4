@@ -1,6 +1,7 @@
 package com.example.project4.service;
 
 import com.example.project4.dto.NotificationFormDto;
+import com.example.project4.entity.Like;
 import com.example.project4.entity.Member;
 import com.example.project4.entity.Notification;
 import com.example.project4.repository.LikeInfoRepository;
@@ -10,9 +11,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,8 +31,6 @@ public class BoardService {
     private LikeInfoRepository likeInfoRepository;
     @Autowired
     private MemberRepository memberRepository;
-    @Autowired
-    private EntityManager entityManager;
 
     @Transactional
     public void saveBoard(NotificationFormDto notificationFormDto) {
@@ -55,19 +60,50 @@ public class BoardService {
         notification.updateEntity(notificationFormDto);
     }
 
-    public Long like_count(Long data, Long notificationId) {
+    /* 유저가 좋아요 버튼 눌렀을 때, 엔티티 Like 데이터 생성&삭제 */
+    /* 좋아요 갯수 더하고(Notification 엔티티), Like 엔티티 추가 또는 삭제, 반환 값은 좋아요 갯수 */
+    /* 받아온 data는 1 또는 -1의 값을 가지고, 공지 게시판의 엔티티에 좋아요 데이터에 data를 더함*/
+    public NotificationFormDto like_count(Long data, Long notificationId, String email) {
+        Member member = memberRepository.findByEmail(email);
         Notification notification = boardRepository.findById(notificationId).orElseThrow((EntityNotFoundException::new));
-        Long like_count = notification.likeCount(data);
+        Optional<Like> optionalLike =likeInfoRepository.findMemberAndNotification(member, notification);
 
-        return like_count;
+        notification.likeCount(data);
+        NotificationFormDto notificationFormDto = NotificationFormDto.of(notification);
+        if(optionalLike.isPresent()) {
+            Like like = optionalLike.get();
+            likeInfoRepository.delete(like);
+            notificationFormDto.setLiked(false);
+        } else {
+            Like like = new Like();
+            like.setLiked(true);
+            like.setMember(member);
+            like.setNotification(notification);
+            likeInfoRepository.save(like);
+            notificationFormDto.setLiked(true);
+        }
+
+        return notificationFormDto;
     }
 
-    public boolean isLike(Long member_id, Long board_id) {
-        System.out.println("isLike--------------------------");
-        System.out.println("member_id : " + member_id + " board_id : " + board_id);
-        System.out.println("isLike--------------------------");
+    public NotificationFormDto like_count_load(Long notificationId, String email) {
+        Member member = memberRepository.findByEmail(email);
+        Notification notification = boardRepository.findById(notificationId).orElseThrow((EntityNotFoundException::new));
+        Optional<Like> optionalLike =likeInfoRepository.findMemberAndNotification(member, notification);
+        NotificationFormDto notificationFormDto = NotificationFormDto.of(notification);
+        if(optionalLike.isPresent()) {
+            Like like = optionalLike.get();
+            likeInfoRepository.delete(like);
+            notificationFormDto.setLiked(false);
+        } else {
+            Like like = new Like();
+            like.setLiked(true);
+            like.setMember(member);
+            like.setNotification(notification);
+            likeInfoRepository.save(like);
+            notificationFormDto.setLiked(true);
+        }
 
-        System.out.println(likeInfoRepository.isLike(member_id, board_id));
-        return likeInfoRepository.isLike(member_id, board_id);
+        return notificationFormDto;
     }
 }
