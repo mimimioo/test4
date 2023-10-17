@@ -32,7 +32,9 @@ public class NotificationFormDto {
 
     private Long view_count;
 
-    private Long like_count;
+    private Long page;
+
+    private Long like_count ;
 
     private boolean isLiked;
 
