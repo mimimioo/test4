@@ -28,9 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
         http.formLogin()
-
                 .loginPage("/members/login")
                 .defaultSuccessUrl("/")
                 .usernameParameter("email")
@@ -39,14 +37,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
                 .logoutSuccessUrl("/")
+
         ;
 
         http.authorizeRequests()
-                .mvcMatchers("/", "/members/**", "/item/**", "/images/**", "/notificationBoard/**").permitAll()
+                .mvcMatchers("/","notificationBoard/** ","/members/**", "/item/**", "/images/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
-                .mvcMatchers("/members/mypage").permitAll()
-                .mvcMatchers("/notificationBoard/**/like").authenticated()
+                .mvcMatchers("/members/mypage").authenticated()
+                .antMatchers("/nameElement").permitAll()
                 .anyRequest().authenticated()
+
+
+
 
         ;
 
@@ -71,4 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
     }
+
+
 }
