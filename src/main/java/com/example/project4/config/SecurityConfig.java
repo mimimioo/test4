@@ -41,13 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
 
         http.authorizeRequests()
-                .mvcMatchers("/","notificationBoard/** ","/members/**", "/item/**", "/images/**").permitAll()
+                .mvcMatchers("/", "notificationBoard/** ", "/members/**", "/item/**", "/images/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .mvcMatchers("/members/mypage").authenticated()
                 .antMatchers("/nameElement").permitAll()
                 .anyRequest().authenticated()
-
-
 
 
         ;
@@ -69,9 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
 
     }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
     }
+}
 
 

@@ -114,26 +114,30 @@ public class AdminController {
         return "redirect:/";
     }
 
-    @PostMapping(value="/notificationBoard/{notificationId}")
+    @PostMapping(value="/notificationBoard/{notificationId}/like")
     @ResponseBody
-    public String likeInfo(@RequestBody Long data, @PathVariable("notificationId") Long notificationId, Model model, Principal principal) {
+    public NotificationFormDto likeInfo(@RequestBody Long data, @PathVariable("notificationId") Long notificationId, Model model, Principal principal) {
+        System.out.println("요청 도착함");
         try{
             NotificationFormDto notificationFormDto = boardService.notificationDetail(notificationId);
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if(authentication.isAuthenticated()) {
                 notificationFormDto = boardService.like_count(data, notificationId, principal.getName());
+                System.out.println("요청 성공 결과 --------");
+//                System.out.println(notificationFormDto.isLike());
+                System.out.println(notificationFormDto.getLike_count());
+                System.out.println("요청 성공 결과 --------");
+                return notificationFormDto;
             }
             /* 게시글 조회 시*/
             /* 방문자의 경우 좋아요 표시 빈하트 */
             /* 유저의 경우 좋아요 표시는 DB에 저장된 데이터에 따라 반환하기 */
             /* 방문자와 유저는 시큐리티로 분리하기 */
-            model.addAttribute("notificationFormDto", notificationFormDto);
         } catch(EntityNotFoundException e) {
             model.addAttribute("errorMessage", "게시글을 찾을 수 없습니다.");
             model.addAttribute("notificationFormDto", new NotificationFormDto());
-            return "redirect:/";
+            System.out.println("트라이 캐치 오류 발생");
         }
-
-        return "board/notice_board";
+        return new NotificationFormDto();
     }
 }
