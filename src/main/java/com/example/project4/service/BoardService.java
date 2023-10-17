@@ -9,7 +9,6 @@ import com.example.project4.repository.MemberRepository;
 import com.example.project4.repository.Notice_boardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,7 +56,7 @@ public class BoardService {
     }
 
     public void updateBoard(NotificationFormDto notificationFormDto) {
-        Notification notification = boardRepository.findById(notificationFormDto.getNotificationId()).get();
+        Notification notification = boardRepository.findById(notificationFormDto.getNotificationId()).orElseThrow((EntityNotFoundException::new));
         notification.updateEntity(notificationFormDto);
     }
 
@@ -65,7 +64,7 @@ public class BoardService {
     /* 좋아요 갯수 더하고(Notification 엔티티), Like 엔티티 추가 또는 삭제, 반환 값은 좋아요 갯수 */
     /* 받아온 data는 1 또는 -1의 값을 가지고, 공지 게시판의 엔티티에 좋아요 데이터에 data를 더함*/
     public NotificationFormDto like_count(Long data, Long notificationId, String email) {
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
+        Member member = memberRepository.findByEmail(email).get();
         Notification notification = boardRepository.findById(notificationId).orElseThrow((EntityNotFoundException::new));
         Optional<Like> optionalLike =likeInfoRepository.findMemberAndNotification(member, notification);
 
@@ -88,21 +87,19 @@ public class BoardService {
     }
 
     public NotificationFormDto like_count_load(Long notificationId, String email) {
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
+        Member member = memberRepository.findByEmail(email).get();
         Notification notification = boardRepository.findById(notificationId).orElseThrow((EntityNotFoundException::new));
         Optional<Like> optionalLike =likeInfoRepository.findMemberAndNotification(member, notification);
         NotificationFormDto notificationFormDto = NotificationFormDto.of(notification);
         if(optionalLike.isPresent()) {
             Like like = optionalLike.get();
-            likeInfoRepository.delete(like);
-            notificationFormDto.setLiked(false);
+            notificationFormDto.setLiked(true);
         } else {
             Like like = new Like();
             like.setLiked(true);
             like.setMember(member);
             like.setNotification(notification);
-            likeInfoRepository.save(like);
-            notificationFormDto.setLiked(true);
+            notificationFormDto.setLiked(false);
         }
 
         return notificationFormDto;
