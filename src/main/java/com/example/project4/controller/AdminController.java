@@ -25,11 +25,10 @@ public class AdminController {
 
     @Autowired
     private BoardService boardService;
-    @Autowired
-    private MemberService memberService;
+
     /*게시글 작성 폼 이동*/
     @GetMapping(value="/admin/notificationBoard/new")
-        public String notificationForm(Model model) {
+    public String notificationForm(Model model) {
         model.addAttribute("notificationFormDto", new NotificationFormDto());
         model.addAttribute("board", "notice");
         return "board/notice_new_board";
@@ -53,7 +52,7 @@ public class AdminController {
     }
 
     /*게시글 조회*/
-@GetMapping(value="/notificationBoard/{notificationId}")
+    @GetMapping(value="/notificationBoard/{notificationId}")
     public String notificationDetail(@PathVariable("notificationId") Long notificationId, Model model, Principal principal) {
         try{
             NotificationFormDto notificationFormDto = boardService.notificationDetail(notificationId);
