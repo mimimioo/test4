@@ -12,16 +12,16 @@
         <div class="best_board flex">
             <div th:each="notice : ${notices.content}" class="review">
                 <a th:href="@{/notificationBoard/__${notice.notificationId}__}">
-                <img th:src="@{/images/고양이3 (2).jpg}" class="thumbnail" />
-                <div class="board_info">
-                    <div class="user" th:text="${notice.name}">작성자</div>
-                    <div class="title" th:text="${notice.title}">제목입니다</div>
-                    <div class="info_date_join">
-                        <div class="created_date" th:text="${notice.getFormattedRegTime()}">2023.01.01</div>
-                        <div class="created_date joinNum" th:text="'조회 ' + ${notice.view_count}"></div>
+                    <img th:src="@{/images/고양이3 (2).jpg}" class="thumbnail" />
+                    <div class="board_info">
+                        <div class="user" th:text="${notice.name}">작성자</div>
+                        <div class="title" th:text="${notice.title}">제목입니다</div>
+                        <div class="info_date_join">
+                            <div class="created_date" th:text="${notice.getFormattedRegTime()}">2023.01.01</div>
+                            <div class="created_date joinNum" th:text="'조회 ' + ${notice.view_count}"></div>
+                        </div>
+                        <div class="like" th:text="${notice.like_count}">10000</div>
                     </div>
-                    <div class="like" th:text="${notice.like_count}">10000</div>
-                </div>
                 </a>
             </div>
         </div>

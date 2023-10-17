@@ -3,52 +3,79 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/baseLayout}">
 <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <title>myPage</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}"/>
 </head>
 
 <body>
 <div layout:fragment="content">
+    <form th:action="@{/members/mypage}" method="post" th:object="${myPage}">
     <div class="mypage_container">
+
         <h1 class="title">마이페이지</h1>
         <div class="info_wrapper">
             <div class="my_info_wrapper">
-                <span class="sub_title">나의 정보</span>
+<!--                <span class="sub_title"></span>-->
                 <div class="my_info">
                     <p class="text_css">이름</p>
-                    <span class="text_data">홍길동</span>
+                    <input type="text" class="form-control" th:field="*{name}" />
+<!--                    <input type="text" class="form-control"  th:value="${myPage.name}" />-->
                 </div>
                 <div class="my_info">
-                    <p class="text_css">e-mail</p>
-                    <span class="text_data">aaa@naver.com</span>
+                    <div class="text_css">e-mail</div>
+                    <input type="text" class="form-control"  th:value="${myPage.email}" th:readonly="readonly" />
+                </div>
+<!--                <div class="my_info">-->
+<!--                    <p class="text_css">우편번호</p>-->
+<!--                    <span class="text_data">12345</span>-->
+<!--                </div>-->
+<!--                <div class="my_info">-->
+<!--                    <p class="text_css">주소</p>-->
+<!--                    <span class="text_data">집</span>-->
+<!--                </div>-->
+<!--                <div class="my_info">-->
+<!--                    <p class="text_css">상세주소</p>-->
+<!--                    <span class="text_data">123</span>-->
+<!--                </div>-->
+
+                <div class="my_info">
+                    <div class="text_css">비밀번호 변경</div>
+                    <input type="password"  class="form-control" id="update_pw" name="update_pw"/>
+                </div>
+                <div class="my_info">
+                    <div class="text_css">비밀번호 확인</div>
+                    <input type="password" class="form-control"  id="update_pw_confirm"/>
                 </div>
                 <div class="my_info">
                     <p class="text_css">가입일</p>
-                    <span class="text_data">2023.01.01</span>
+                    <!--                    <input type="text" class="form-control" th:value="${#dates.format(myPage.reg_time, 'yyyy-MM-dd HH:mm:ss', null)}" th:readonly="readonly" />-->
+                    <input type="text" class="form-control" th:field="*{reg_time}" th:readonly="readonly" />
                 </div>
+                <button type="submit" class="btn btn-primary" onclick="return confirm('수정하시겠습니까?')">수정하기</button>
             </div>
-            <div class="info_update">
-                <span class="sub_title">정보 수정</span>
-                <form action="#" method="post" class="update_form">
+        </div>
+<!--        </form>-->
+<!--                <form action="#" method="post" class="update_form">-->
                     <!-- 변경할 비밀번호와 비밀번호 확인은 JS에서 비교 후 전송 -->
-                    <div class="update_form_input">
-                        <div class="text_css">현재 비밀번호</div>
-                        <input type="password" id="current_pw" name="current_pw"/>
-                    </div>
-                    <div class="update_form_input">
-                        <div class="text_css">비밀번호 변경</div>
-                        <input type="password" id="update_pw" name="update_pw"/>
-                    </div>
-                    <div class="update_form_input">
-                        <div class="text_css">비밀번호 확인</div>
-                        <input type="password" id="update_pw_confirm"/>
-                    </div>
-                    <div class="update_form_input">
-                        <div class="text_css">이메일</div>
-                        <input type="email" id="update_email"/>
-                    </div>
-                    <button type="button" onclick="update_form_submit()">수정하기</button>
-                </form>
-            </div>
+
+<!--                    <div class="update_form_input">-->
+<!--                        <div class="text_css">비밀번호 변경</div>-->
+<!--                        <input type="password" id="update_pw" name="update_pw"/>-->
+<!--                    </div>-->
+<!--                    <div class="update_form_input">-->
+<!--                        <div class="text_css">비밀번호 확인</div>-->
+<!--                        <input type="password" id="update_pw_confirm"/>-->
+<!--                    </div>-->
+<!--                    <div class="update_form_input">-->
+<!--                        <div class="text_css">이메일</div>-->
+<!--                        <input type="email" id="update_email"/>-->
+<!--                    </div>-->
+<!--                    <button type="submit" class="btn btn-primary" onclick="return modifyCheckAll()">수정하기</button>-->
+<!--                </form>-->
+<!--            </div>-->
         </div>
         <div class="my_review">
             <div class="classification_head">
@@ -66,9 +93,10 @@
                 <a href="#" class="review_title">리뷰 제목이에요</a>
                 <span class="review_day">2023.01.02</span>
             </div>
-            <button class="btn" onclick="new_data()">목록 추가</button>
+<!--            <button class="btn" onclick="new_data()">더보기</button>-->
         </div>
-    </div>
+    </form>
+
 </div>
 </body>
 </html>
