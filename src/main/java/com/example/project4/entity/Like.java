@@ -1,10 +1,13 @@
 package com.example.project4.entity;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "like_table")
 public class Like {
     @Id

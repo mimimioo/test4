@@ -12,8 +12,6 @@
             $(likeTag).click(function (event) {
                 // 입력 데이터 가져오기
                 let data = $(likeTag).hasClass("pushedLike") ? -1 : 1;
-                // NoticeLike 버튼 클릭 시 토글 클래스
-                $(likeTag).toggleClass("pushedLike");
 
                 // Ajax 요청 설정
                 $.ajax({
