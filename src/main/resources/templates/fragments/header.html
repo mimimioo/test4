@@ -35,13 +35,14 @@
 <!--        });-->
 <!--    });-->
 <!--</script>-->
+
 </head>
 
 <body id="top">
 <div th:fragment="header">
     <div class="header_top">
         <div class="header_login_wrapper" >
-
+            <div style="display:flex; align-items: center">
             <button class="header_login">
                 <img th:src="@{/images/free-icon-menu-1828859.png}" class="menu_icon">
                 <img th:src="@{/images/free-icon-profile-4675250.png}" class="profile_icon">
@@ -56,54 +57,40 @@
 <!--                    <li class="nav-item" sec:authorize="isAuthenticated()">-->
 <!--                        <a class="nav-link" href="/members/logout">로그아웃</a>-->
 <!--                    </li>-->
-                    <!-- 로그인 후 DM, 회원정보로 바꾸기 -->
+
                 </ul>
             </button>
-            <script th:inline="javascript">
-                $(document).ready(function () {
-                    // 사용자 이름을 가져와서 업데이트
-                    var username = [[${#httpServletRequest.userPrincipal?.name}]]; // 사용자가 로그인하지 않은 경우에 대비하여 기본값 설정
-                    var nameElement = document.querySelector("#name");
+                <script th:inline="javascript">
+                    $(document).ready(function () {
+                        // 사용자 이름을 가져와서 업데이트
+                        var username = [[${#httpServletRequest.userPrincipal?.name}]]; // 사용자가 로그인하지 않은 경우에 대비하여 기본값 설정
+                        var nameElement = document.querySelector("#name");
 
-                    // CSRF 토큰 및 헤더 이름을 가져오기
-                    var csrfToken = [[${_csrf.token}]]
-                    var csrfHeader = [[${_csrf.headerName}]]
+                        // CSRF 토큰 및 헤더 이름을 가져오기
 
-                    if (username !== null) {
-                        console.log("Name: " + username);
-                        if (nameElement !== null) {
-                            nameElement.textContent = username;
+
+                        if (username !== null) {
+                            console.log("Name: " + username);
+                            if (nameElement !== null) {
+                                nameElement.textContent = username;
+                            }
                         }
+                    });
+                </script>
+<!--            <p style="color: #0683ff">환영합니다, <span id="name" style="color: #000000; font-weight: bold;"> </span> </p>-->
+<!--                <p style="color: #0683ff" th:if="${name != null}">환영합니다, <span id="name" style="color: #000000; font-weight: bold;" th:text="${name}"></span></p>-->
+                <span id="name" style="color:#0683ff; font-weight: bold; margin-left:10px;"></span>
+<!--                <span id="name" style="color: #0683ff; font-weight: bold;" th:if="${name != null}" th:text="${'환영합니다, ' + name}"></span>-->
 
-                    //     // 사용자가 로그인한 경우에만 CSRF 토큰을 사용하여 AJAX 요청 설정
-                    //     if (csrfToken && csrfHeader) {
-                    //         $.ajax({
-                    //             url: "/nameElement",
-                    //             type: "POST",
-                    //             data: JSON.stringify({ "email": username }),
-                    //             contentType: "application/json; charset=utf-8",
-                    //             dataType: "json",
-                    //             beforeSend: function (xhr) {
-                    //                 // CSRF 토큰을 요청 헤더에 추가
-                    //                 xhr.setRequestHeader(csrfHeader, csrfToken);
-                    //             },
-                    //             success: function (response) {
-                    //                 // AJAX 요청이 성공적으로 완료되면 nameElement의 값을 업데이트하고 확인
-                    //                 $(nameElement).text(response);
-                    //                 console.log(nameElement);
-                    //             },
-                    //             error: function (error) {
-                    //                 console.error("Ajax request failed: " + error);
-                    //             }
-                    //         });
-                    //     }
-                    }
-                });
-            </script>
-            <span id="name"></span>
+
+
+
+            </div>
+
+
         </div>
 
-        <h1 class="header_title">REVIEW LOG</h1>
+        <a href="/"><h1 class="header_title">REVIEW LOG</h1></a>
 
         <div class="header_search_wrapper">
             <button class="header_search">

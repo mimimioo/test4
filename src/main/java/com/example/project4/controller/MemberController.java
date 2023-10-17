@@ -3,6 +3,7 @@ package com.example.project4.controller;
 import com.example.project4.entity.Member;
 import com.example.project4.dto.MemberFormDto;
 import com.example.project4.repository.MemberRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,43 +25,22 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
     private final MemberService memberService;
     private final MemberRepository memberRepository;
+    @GetMapping(value = "/mypage")
+    public String myPage(Model model) {
 
-//    @GetMapping(value ="/mypage")
-//    public String myPage(Model model){
-//        model.addAttribute("memberFormDto", new MemberFormDto());
-//        return "member/mypage";
-//
-//    }
-//@GetMapping(value = "/mypage")
-//public String myPage(Model model) {
-//    // Replace "user@example.com" with the actual email you want to fetch
-//    String email = "aaa@naver.com";
-//
-//    try {
-//        Member member = memberService.getMemberData(email);
-//        model.addAttribute("myPage", member);
-//        return "member/myPage"; // The name of the template to display member data
-//    } catch (EntityNotFoundException ex) {
-//        // Handling the case when a member with the provided email is not found
-//        model.addAttribute("error", "Member not found");
-//        return "errorPage"; // The name of the error template
-//    }
-//}
-@GetMapping(value = "/mypage")
-public String myPage(Model model) {
-    try {
-        // 현재 사용자의 이메일 가져오기
-        String email = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        try {
+            // 현재 사용자의 이메일 가져오기
+            String email = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 
-        Member member = memberService.getMemberData(email);
-        model.addAttribute("myPage", member);
-        return "member/myPage"; // 정보 출력 폼
-    } catch (EntityNotFoundException ex) {
-        // 회원을 찾을 수 없는 경우에 대한 예외 처리해서 오류페이지로 넘기기
-        model.addAttribute("error", "Member not found");
-        return "errorPage"; // 오류 페이지 템플릿 이름
+            Member member = memberService.getMemberData(email);
+            model.addAttribute("myPage", member);
+            return "member/mypage"; // 정보 출력 폼
+        } catch (EntityNotFoundException ex) {
+            // 회원을 찾을 수 없는 경우에 대한 예외 처리해서 오류페이지로 넘기기
+            model.addAttribute("error", "Member not found");
+            return "errorPage"; // 오류 페이지 템플릿 이름
+        }
     }
-}
 
     @PostMapping(value="/mypage")
     public String updateMember(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
@@ -78,6 +58,20 @@ public String myPage(Model model) {
         return "redirect:/";
     }
 
+    //아이디 중복체크
+    @RequestMapping(value = "/checkEmailDuplicate", method = RequestMethod.POST)
+    public String checkEmailDuplicate(@RequestBody MemberFormDto.CheckEmailRequest request) {
+        String email = request.getEmail();
+        if (memberService.isEmailDuplicate(email)) {
+            return "DUPLICATE";
+        }
+        return "NOT_DUPLICATE";
+    }
+    @GetMapping("/checkEmailDuplicate")
+    public ResponseEntity<String> checkEmailDuplicate() {
+        // GET 요청 처리 로직을 여기에 추가
+        return ResponseEntity.ok("GET 요청이 처리되었습니다.");
+    }
 
     @GetMapping(value ="/new")
     public String memberForm(Model model){
@@ -112,8 +106,8 @@ public String myPage(Model model) {
 
     @GetMapping(value = "/login/error")
     public String loginError(Model model){
-     model.addAttribute("loginErrorMsg", "아이디 혹은 비밀번호를 맞게 입력해주세요");
-     return "member/login";
+        model.addAttribute("loginErrorMsg", "아이디 혹은 비밀번호를 맞게 입력해주세요");
+        return "member/login";
     }
 
 
