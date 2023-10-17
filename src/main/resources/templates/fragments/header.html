@@ -6,35 +6,11 @@
 <head>
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-<link rel="stylesheet" th:href="@{/css/createAccount.css}"/>
+    <link rel="stylesheet" th:href="@{/css/createAccount.css}"/>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--<script th:inline="javascript">-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!--    $(document).ready(function () {-->
-<!--        // 입력 데이터 가져오기-->
-<!--        /* 사용자 이메일을 JavaScript 변수로 설정 */-->
-<!--        let name = [[${#httpServletRequest.userPrincipal?.name}]];-->
-<!--        let nameElement = document.querySelector("#name");-->
-<!--        // Ajax 요청 설정-->
-<!--        $.ajax({-->
-<!--            url: "/nameElement",-->
-<!--            type: "POST",-->
-<!--            data: JSON.stringify({data: name}),-->
-<!--            contentType: "application/json; charset=utf-8",-->
-<!--            dataType: "json",-->
-<!--            success: function (response) {-->
-<!--                // AJAX 요청이 성공적으로 완료되면 nameElement의 값을 업데이트하고 확인-->
-<!--                $(nameElement).text(response);-->
-<!--                console.log(nameElement);-->
-<!--            },-->
-<!--            error: function (error) {-->
-<!--                console.error("Ajax request failed: " + error);-->
-<!--            }-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
 </head>
 
 <body id="top">
@@ -49,61 +25,16 @@
                     <a href="/members/login" id="goto_login" sec:authorize="isAnonymous()">로그인</a>
                     <a href="/members/new" id="goto_join" sec:authorize="isAnonymous()">회원가입</a>
                     <a href="/members/logout" id="goto_logout" sec:authorize="isAuthenticated()">로그아웃</a>
+                    <a href="/admin/notificationBoard/new" sec:authorize="hasRole('ADMIN')">공지사항 작성</a>
+<!--                    <a href="/admin/notificationBoard/new" sec:authorize="hasRole('ADMIN')">게시글 작성</a>-->
+<!--                    <a href="/admin/notificationBoard/new" sec:authorize="hasRole('USER')">게시글 작성</a>-->
                     <a href="/members/mypage" id="goto_mypage" sec:authorize="isAuthenticated()">마이페이지</a>
-<!--                    <li class="nav-item" sec:authorize="isAnonymous()">-->
-<!--                        <a class="nav-link" href="/members/login" id="goto_login">로그인</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item" sec:authorize="isAuthenticated()">-->
-<!--                        <a class="nav-link" href="/members/logout">로그아웃</a>-->
-<!--                    </li>-->
-                    <!-- 로그인 후 DM, 회원정보로 바꾸기 -->
+
                 </ul>
             </button>
-            <script th:inline="javascript">
-                $(document).ready(function () {
-                    // 사용자 이름을 가져와서 업데이트
-                    var username = [[${#httpServletRequest.userPrincipal?.name}]]; // 사용자가 로그인하지 않은 경우에 대비하여 기본값 설정
-                    var nameElement = document.querySelector("#name");
-
-                    // CSRF 토큰 및 헤더 이름을 가져오기
-                    var csrfToken = [[${_csrf.token}]]
-                    var csrfHeader = [[${_csrf.headerName}]]
-
-                    if (username !== null) {
-                        console.log("Name: " + username);
-                        if (nameElement !== null) {
-                            nameElement.textContent = username;
-                        }
-
-                    //     // 사용자가 로그인한 경우에만 CSRF 토큰을 사용하여 AJAX 요청 설정
-                    //     if (csrfToken && csrfHeader) {
-                    //         $.ajax({
-                    //             url: "/nameElement",
-                    //             type: "POST",
-                    //             data: JSON.stringify({ "email": username }),
-                    //             contentType: "application/json; charset=utf-8",
-                    //             dataType: "json",
-                    //             beforeSend: function (xhr) {
-                    //                 // CSRF 토큰을 요청 헤더에 추가
-                    //                 xhr.setRequestHeader(csrfHeader, csrfToken);
-                    //             },
-                    //             success: function (response) {
-                    //                 // AJAX 요청이 성공적으로 완료되면 nameElement의 값을 업데이트하고 확인
-                    //                 $(nameElement).text(response);
-                    //                 console.log(nameElement);
-                    //             },
-                    //             error: function (error) {
-                    //                 console.error("Ajax request failed: " + error);
-                    //             }
-                    //         });
-                    //     }
-                    }
-                });
-            </script>
-            <span id="name"></span>
         </div>
 
-        <h1 class="header_title">REVIEW LOG</h1>
+        <a href="/"><h1 class="header_title">REVIEW LOG</h1></a>
 
         <div class="header_search_wrapper">
             <button class="header_search">
@@ -157,7 +88,7 @@
                 <a href="#">
                     <li class="category"><img th:src="@{/images/진구.png}"><span>부산진구</span></li>
                 </a>
-               <a href="#">
+                <a href="#">
                     <li class="category"><img th:src="@{/images/사하구_영도구_남구.png}"><span>사하구/영도구/남구</span></li>
                 </a>
                 <a href="#">

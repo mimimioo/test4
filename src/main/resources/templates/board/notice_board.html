@@ -7,24 +7,31 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script th:inline="javascript">
         $(document).ready(function () {
-            var notificationId = [[${notificationFormDto.notificationId}]];
-            var likeTag = document.querySelector("#like");
+            var likeTag = "#like";
+            var token = [[${_csrf.token}]]; // Thymeleaf를 사용해 CSRF 토큰을 가져옴
+            var header = [[${_csrf.headerName}]];
+            console.log([[${notificationFormDto.isLiked()}]])
+
             $(likeTag).click(function (event) {
                 // 입력 데이터 가져오기
                 let data = $(likeTag).hasClass("pushedLike") ? -1 : 1;
-
                 // Ajax 요청 설정
                 $.ajax({
-                    url: "/notificationBoard/" + notificationId + "/like", // 동적 URL 생성
+                    url: "/notificationBoard/" + [[${notificationFormDto.getNotificationId()}]] + "/like", // 동적 URL 생성
                     type: "POST",
-                    data: JSON.stringify({ data: data }),
+                    data: JSON.stringify(data),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (response) {
-                        $(likeTag).text(response);
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success: function (notificationFormDto) {
+                        $(likeTag).text(notificationFormDto.like_count);
+                        console.log(notificationFormDto);
+                        notificationFormDto.liked? $(likeTag).addClass("pushedLike") : $(likeTag).removeClass("pushedLike");
                     },
                     error: function (error) {
-                        console.error("Ajax request failed: " + error);
+                        console.log(error);
                     }
                 });
             });
@@ -38,34 +45,34 @@
 
 <!-- 뷰 -->
 <div layout:fragment="content">
-<div class="board_container">
-    <div class="board_info">
-        <div class="title" th:text="${notificationFormDto.getTitle()}">제목입니다</div>
-        <div class="user" th:text="${notificationFormDto.getCreateBy()}">작성자</div>
-        <div class="info_date_join">
-            <div class="created_date" th:text="${notificationFormDto.getFormattedRegTime()}">2023.01.01</div>
-            <div class="joinNum" th:text="${notificationFormDto.getView_count()}"></div>
+    <div class="board_container">
+        <div class="board_info">
+            <div class="title" th:text="${notificationFormDto.getTitle()}">제목입니다</div>
+            <div class="user" th:text="${notificationFormDto.getCreateBy()}">작성자</div>
+            <div class="info_date_join">
+                <div class="created_date" th:text="${notificationFormDto.getFormattedRegTime()}">2023.01.01</div>
+                <div class="joinNum" th:text="${notificationFormDto.getView_count()}"></div>
+            </div>
+
+            <a href="#" class="like" th:classappend="${notificationFormDto.isLiked()} ? 'pushedLike' : ''" id="like" th:text="${notificationFormDto.getLike_count()}"> 0</a>
         </div>
+        <div class="notice_content" th:text="${notificationFormDto.getContent()}"></div>
 
-        <a href="#" class="like" th:classappend="${isLike} ? 'pushedLike' : ''" id="like" th:text="${notificationFormDto.getLike_count()}"> 0</a>
-    </div>
-    <div class="notice_content" th:text="${notificationFormDto.getContent()}"></div>
-
-    <div class="comment">
-        <div class="user_info">
-            <div class="profile"><i class="fa-regular fa-user"></i></div>
-            <div class="info">
-                <div class="info_top">
-                    <div class="user_name">홍길동</div>
-                    <div class="comment_date">2023.01.01</div>
-                </div>
-                <div class="info_bottom">
-                    <div class="comment_content">글 잘 보구가요~</div>
+        <div class="comment">
+            <div class="user_info">
+                <div class="profile"><i class="fa-regular fa-user"></i></div>
+                <div class="info">
+                    <div class="info_top">
+                        <div class="user_name">홍길동</div>
+                        <div class="comment_date">2023.01.01</div>
+                    </div>
+                    <div class="info_bottom">
+                        <div class="comment_content">글 잘 보구가요~</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 </html>
 <!-- <i class="fa-solid fa-user"></i> -->

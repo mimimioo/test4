@@ -49,4 +49,4 @@ build/
 /.idea/workspace.xml
 /src/main/resources/application.properties
 /src/main/resources/application-test.properties
-/src/main/java/com/example/project4/config/SecurityConfig.java
+/pom.xml
