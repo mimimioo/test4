@@ -35,7 +35,7 @@ public class BoardService {
     @Transactional
     public void saveBoard(NotificationFormDto notificationFormDto) {
         Notification notification = notificationFormDto.createNotification();
-        Member member = memberRepository.findByEmail(notificationFormDto.getEmail());
+        Member member = memberRepository.findByEmail(notificationFormDto.getEmail()).get();
         notification.setName(member.getName());
         System.out.println(notification.getName());
         notification.setLike_count(0L);
@@ -64,7 +64,7 @@ public class BoardService {
     /* 좋아요 갯수 더하고(Notification 엔티티), Like 엔티티 추가 또는 삭제, 반환 값은 좋아요 갯수 */
     /* 받아온 data는 1 또는 -1의 값을 가지고, 공지 게시판의 엔티티에 좋아요 데이터에 data를 더함*/
     public NotificationFormDto like_count(Long data, Long notificationId, String email) {
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberRepository.findByEmail(email).get();
         Notification notification = boardRepository.findById(notificationId).orElseThrow((EntityNotFoundException::new));
         Optional<Like> optionalLike =likeInfoRepository.findMemberAndNotification(member, notification);
 
@@ -87,21 +87,19 @@ public class BoardService {
     }
 
     public NotificationFormDto like_count_load(Long notificationId, String email) {
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberRepository.findByEmail(email).get();
         Notification notification = boardRepository.findById(notificationId).orElseThrow((EntityNotFoundException::new));
         Optional<Like> optionalLike =likeInfoRepository.findMemberAndNotification(member, notification);
         NotificationFormDto notificationFormDto = NotificationFormDto.of(notification);
         if(optionalLike.isPresent()) {
             Like like = optionalLike.get();
-            likeInfoRepository.delete(like);
-            notificationFormDto.setLiked(false);
+            notificationFormDto.setLiked(true);
         } else {
             Like like = new Like();
             like.setLiked(true);
             like.setMember(member);
             like.setNotification(notification);
-            likeInfoRepository.save(like);
-            notificationFormDto.setLiked(true);
+            notificationFormDto.setLiked(false);
         }
 
         return notificationFormDto;
