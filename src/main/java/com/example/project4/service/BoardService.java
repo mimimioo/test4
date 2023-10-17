@@ -1,14 +1,17 @@
 package com.example.project4.service;
 
 import com.example.project4.dto.NotificationFormDto;
+import com.example.project4.entity.Member;
 import com.example.project4.entity.Notification;
 import com.example.project4.repository.LikeInfoRepository;
+import com.example.project4.repository.MemberRepository;
 import com.example.project4.repository.Notice_boardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 
 @Service
@@ -19,10 +22,17 @@ public class BoardService {
     private Notice_boardRepository boardRepository;
     @Autowired
     private LikeInfoRepository likeInfoRepository;
+    @Autowired
+    private MemberRepository memberRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     @Transactional
     public void saveBoard(NotificationFormDto notificationFormDto) {
         Notification notification = notificationFormDto.createNotification();
+        Member member = memberRepository.findByEmail(notificationFormDto.getEmail());
+        notification.setName(member.getName());
+        System.out.println(notification.getName());
         notification.setLike_count(0L);
         notification.setView_count(0L);
         boardRepository.save(notification);
@@ -53,8 +63,11 @@ public class BoardService {
     }
 
     public boolean isLike(Long member_id, Long board_id) {
-        Boolean result = likeInfoRepository.findByMemberIdAndBoardId(member_id, board_id);
+        System.out.println("isLike--------------------------");
+        System.out.println("member_id : " + member_id + " board_id : " + board_id);
+        System.out.println("isLike--------------------------");
 
-        return likeInfoRepository.findByMemberIdAndBoardId(member_id, board_id);
+        System.out.println(likeInfoRepository.isLike(member_id, board_id));
+        return likeInfoRepository.isLike(member_id, board_id);
     }
 }

@@ -18,7 +18,7 @@
     justify-content: center;
     background-color: rgb(255, 231, 231);
     width: 90%;
-    padding: 2%;
+    padding: 15px;
     position: relative;
     border-radius: 20px;
 }
@@ -59,7 +59,10 @@
     justify-content: space-between;
     width: 100%;
     margin-top: auto;
-;
+    font-weight: bold;
+}
+.joinNum::before {
+    content: '조회 : ';
 }
 .comment{
     word-break:break-all;

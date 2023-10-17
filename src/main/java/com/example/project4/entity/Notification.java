@@ -21,6 +21,9 @@ public class Notification extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long notificationId;            //공지글 코드
 
+    @Column(name="user_name")
+    private String name;       //이름
+
     @Column(name="title")
     private String title;       //제목
 
