@@ -16,7 +16,9 @@ import java.time.format.DateTimeParseException;
 public class NotificationFormDto {
     private Long notificationId;
 
-    private Long userId;
+    private String email;
+
+    private String name;
 
     @NotBlank(message = "제목을 입력해주세요.")
     private String title;
