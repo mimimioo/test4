@@ -73,5 +73,24 @@ public class MemberService implements UserDetailsService {
         return findMember.isPresent(); // 이미 가입된 이메일이 존재하면 true 반환, 그렇지 않으면 false 반환
     }
 
+    public boolean isEmailAlreadyInUse(String email) {
+        // 이메일이 이미 데이터베이스에 존재하는지 확인하는 로직을 구현
+        // 존재하면 true 반환, 아니면 false 반환
+        return memberRepository.existsByEmail(email);
+    }
+
+    @Transactional
+    public void deleteMember(String email) {
+        // 이 메서드에서 회원 정보 및 관련 정보를 삭제하는 로직을 구현합니다.
+        // MemberRepository를 사용하여 데이터베이스에서 회원 정보를 가져와 삭제하거나 관련 정보도 삭제할 수 있습니다.
+
+        // 예시: 이메일을 기반으로 회원 정보를 가져온 후 삭제
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
+        if (member != null) {
+            // 회원 정보를 삭제
+            memberRepository.delete(member);
+            // 다른 관련 정보도 삭제할 수 있습니다.
+        }
+    }
     }
 

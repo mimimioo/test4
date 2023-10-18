@@ -115,11 +115,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/");
 
         http.authorizeRequests()
+//                .mvcMatchers("/", "/notificationBoard/**", "/members/**", "/item/**", "/images/**", "/members/new", "/favicon.ico").permitAll()
                 .mvcMatchers("/", "/notificationBoard/**", "/members/**", "/item/**", "/images/**", "/members/new", "/favicon.ico").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .mvcMatchers("/members/mypage").authenticated()
                 .antMatchers("/nameElement").permitAll()
                 .antMatchers("/members/checkEmailDuplicate").permitAll()
+                .antMatchers("/members/delete").permitAll() //삭제권한
                 .antMatchers("/csrf-endpoint").permitAll()
 
                 .anyRequest().authenticated();

@@ -26,7 +26,7 @@
 
 <body>
 <div class="login_container">
-    <a href="/header.html" class="logo">REVIEW LOG</a>
+    <a href="/" class="logo">REVIEW LOG</a>
     <h3 class="title">회원가입</h3>
     <h5 class="title">REVIEW LOG 계정 생성</h5>
     <form action="/members/new" method="post" role="form" name="login_data" class="login_form" th:object="${memberFormDto}">
@@ -36,6 +36,7 @@
             <label th:for="email" th:field="*{email}" class="input_box"  id="email_placeholder">이메일을 입력해주세요</label>
             <!--            <div class="input_box" id="email_placeholder">이메일을 입력해주세요.</div>-->
             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+            <p th:if="${errorMessage}" class="fieldError" th:text="${errorMessage}"></p> <!-- 중복 에러 메시지 표시 -->
             <!--            <p class="input_alert" id="email_alert">이메일을 입력해주세요.</p>-->
         </div>
 
@@ -153,36 +154,36 @@
         <!--                                    if (response === 'DUPLICATE') {-->
         <!--                                        alert('중복된 이메일 주소입니다.');-->
         <!--                                        $('#email').focus();-->
-        <!--                                    }-->
-        <!—                                    console.log(email);—>
-        <!—                                }—>
-        <!—                            });—>
-        <!—                        }—>
-        <!—                    });—>
-        <!—                });—>
-        <!—            });—>
-        <!—        </script>—>
-        <script th:inline="javascript">
-            $(document).ready(function () {
-                $('#email').on('blur', function () {
-                    var email = $(this).val();
-                    if (email !== '') {
-                        $.ajax({
-                            type: 'GET',
-                            url: '/members/checkEmailDuplicate?email=' + email,
-                            success: function (response) {
-                                if (response === 'DUPLICATE') {
-                                    alert("중복된 이메일 주소입니다.");
-                                    console.log("중복된 이메일 주소");
-                                    $('#email').focus();
-                                }
-                                console.log(email);
-                            }
-                        });
-                    }
-                });
-            });
-        </script>
+<!--                                            }-->
+<!--        <!—-                                   console.log(email); —->-->
+<!--        <!—                                }—>-->
+<!--        <!—                            });—>-->
+<!--        <!—                        }—>-->
+<!--        <!—                    });—>-->
+<!--        <!—                });—>-->
+<!--        <!—            });—>-->
+<!--        <!—        </script>—>-->
+<!--        <script th:inline="javascript">-->
+<!--            $(document).ready(function () {-->
+<!--                $('#email').on('blur', function () {-->
+<!--                    var email = $(this).val();-->
+<!--                    if (email !== '') {-->
+<!--                        $.ajax({-->
+<!--                            type: 'GET',-->
+<!--                            url: '/members/checkEmailDuplicate?email=' + email,-->
+<!--                            success: function (response) {-->
+<!--                                if (response === 'DUPLICATE') {-->
+<!--                                    alert("중복된 이메일 주소입니다.");-->
+<!--                                    console.log("중복된 이메일 주소");-->
+<!--                                    $('#email').focus();-->
+<!--                                }-->
+<!--                                console.log(email);-->
+<!--                            }-->
+<!--                        });-->
+<!--                    }-->
+<!--                });-->
+<!--            });-->
+<!--        </script>-->
     </form>
 </div>
 </body>

@@ -26,6 +26,10 @@ public class MemberFormDto {
     @Length(min=8, max=16, message = "비밀번호는 8자 이상, 16자 이하로 입력해주세요")
     private String password;
 
+    @NotEmpty(message = "비밀번호 확인은 필수 입력 값입니다.")
+    @Length(min=8, max=16, message = "비밀번호는 8자 이상, 16자 이하로 입력해주세요")
+    private String update_pw;
+
 
 //    @NotNull(message = "우편번호는 필수 입력 값입니다")
     private int zipCode;
@@ -51,12 +55,6 @@ public class MemberFormDto {
         return modelMapper.map(member,MemberFormDto.class);
     }
 
-    public class CheckEmailRequest {
-        private String email;
-        public String getEmail() {
-            return email;
-        }
-        // Getter and setter methods
-    }
+
 }
 

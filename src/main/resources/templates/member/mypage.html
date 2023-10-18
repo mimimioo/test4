@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <title>myPage</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}"/>
+
 </head>
 
 <body>
@@ -20,23 +21,28 @@
         <div class="info_wrapper">
             <div class="my_info_wrapper">
 <!--                <span class="sub_title"></span>-->
-                <div class="my_info">
+<!--                <div class="my_info">-->
+<!--                    <p class="text_css" th:if="${myPage.name != null and myPage.name != ''}">이름</p>-->
+<!--&lt;!&ndash;                    <input type="text" class="form-control" th:value="*{myPage.name}" />&ndash;&gt;-->
+<!--                    <input type="text" class="form-control"  th:value="${myPage.name}" />-->
+<!--                </div>-->
+                <div class="my_info" th:if="${myPage != null and myPage.name != null}">
                     <p class="text_css">이름</p>
                     <input type="text" class="form-control" th:field="*{name}" />
-<!--                    <input type="text" class="form-control"  th:value="${myPage.name}" />-->
                 </div>
-                <div class="my_info">
+
+                <div class="my_info" th:if="${myPage != null and myPage.email != null}">
                     <div class="text_css">e-mail</div>
-                    <input type="text" class="form-control"  th:value="${myPage.email}" th:readonly="readonly" />
+                    <input type="text" class="form-control" th:field="*{email}" th:readonly="readonly" />
                 </div>
 <!--                <div class="my_info">-->
 <!--                    <p class="text_css">우편번호</p>-->
 <!--                    <span class="text_data">12345</span>-->
 <!--                </div>-->
-<!--                <div class="my_info">-->
-<!--                    <p class="text_css">주소</p>-->
-<!--                    <span class="text_data">집</span>-->
-<!--                </div>-->
+                <div class="my_info" th:if="${myPage != null and myPage.address != null}">
+                    <p class="text_css">주소</p>
+                    <input type="text" class="form-control" th:field="*{address}" />
+                </div>
 <!--                <div class="my_info">-->
 <!--                    <p class="text_css">상세주소</p>-->
 <!--                    <span class="text_data">123</span>-->
@@ -44,20 +50,59 @@
 
                 <div class="my_info">
                     <div class="text_css">비밀번호 변경</div>
-                    <input type="password"  class="form-control" id="update_pw" name="update_pw"/>
+                    <input type="password" class="form-control" th:field="*{password}" />
                 </div>
                 <div class="my_info">
                     <div class="text_css">비밀번호 확인</div>
-                    <input type="password" class="form-control"  id="update_pw_confirm"/>
+                    <input type="password" id="update_pw_confirm" class="form-control" th:field="*{update_pw_confirm}" />
+                    <p th:if="${passwordError}" class="fieldError" th:text="${passwordError}"></p>
                 </div>
                 <div class="my_info">
                     <p class="text_css">가입일</p>
-                    <!--                    <input type="text" class="form-control" th:value="${#dates.format(myPage.reg_time, 'yyyy-MM-dd HH:mm:ss', null)}" th:readonly="readonly" />-->
                     <input type="text" class="form-control" th:field="*{reg_time}" th:readonly="readonly" />
                 </div>
-                <button type="submit" class="btn btn-primary" onclick="return confirm('수정하시겠습니까?')">수정하기</button>
             </div>
         </div>
+        <div style="text-align: center; margin: 10px 20px 10px 20px;">
+                <button type="submit" class="btn btn-primary" onclick="return confirm('수정하시겠습니까?')">수정하기</button>
+                <button type="submit" class="btn btn-danger" onclick="confirmDelete()">탈퇴하기</button>
+        </div>
+
+<!--        회원탈퇴 쿼리-->
+        <meta name="_csrf" content="YOUR_CSRF_TOKEN_HERE">
+        <script>
+
+            // CSRF 토큰을 가져오는 함수 정의
+            function getCsrfToken() {
+                // 원하는 방식으로 CSRF 토큰을 가져오세요.
+                // 이 예시에서는 <meta> 태그에서 name이 "_csrf"인 값을 가져오는 것으로 가정합니다.
+                var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+                return csrfToken;
+            }
+
+            function confirmDelete() {
+                if (confirm('탈퇴하시겠습니까?')) {
+                    $.ajax({
+                        url: '/members/delete',
+                        type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': getCsrfToken() // CSRF 토큰 가져오기
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                alert('탈퇴가 완료되었습니다.');
+                                window.location.href = '/logout';
+                            } else {
+                                alert('탈퇴가 실패했습니다: ' + response.message);
+                            }
+                        },
+                        error: function(error) {
+                            alert('탈퇴 중 오류가 발생했습니다.');
+                        }
+                    });
+                }
+            }
+        </script>
 <!--        </form>-->
 <!--                <form action="#" method="post" class="update_form">-->
                     <!-- 변경할 비밀번호와 비밀번호 확인은 JS에서 비교 후 전송 -->
@@ -95,6 +140,7 @@
                 </div>
             </div>
         </div>
+
         <div class="my_review" sec:authorize="hasRole('ADMIN')">
             <h5 style="margin-left: 10px;">공지사항</h5>
             <div class="classification_head">
@@ -116,5 +162,5 @@
     </form>
 
 </div>
-</body>
+</body>>
 </html>
