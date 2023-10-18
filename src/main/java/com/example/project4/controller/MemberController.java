@@ -89,6 +89,8 @@ public class MemberController {
     }
     @PostMapping(value="/new")
     public String newMember(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
+        System.out.println("-----------폼 제출 후 이메일 확인");
+        System.out.println(memberFormDto.getEmail());
         if (bindingResult.hasErrors()){
             return "member/createAccount";
         }
@@ -98,6 +100,7 @@ public class MemberController {
         }
         catch (IllegalStateException e){
             model.addAttribute("erroMessage", e.getMessage());
+            model.addAttribute("memberFormDto", new MemberFormDto());
             return "member/createAccount";
         }
         return "redirect:/";
