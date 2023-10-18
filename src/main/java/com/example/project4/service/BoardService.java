@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -49,6 +51,25 @@ public class BoardService {
         NotificationFormDto notificationFormDto = NotificationFormDto.of(notification);
 
         return notificationFormDto;
+    }
+
+    public List<NotificationFormDto> notificationListLoad(String email) {
+        System.out.println("이메일----------------------");
+        System.out.println(email);
+        System.out.println("----------------------");
+        List<Notification> notifications = boardRepository.findByCreatedBy(email);
+        List<NotificationFormDto> notificationDtos = new ArrayList<>();
+        for (Notification notification : notifications) {
+            NotificationFormDto dto = new NotificationFormDto();
+            System.out.println(notification.getNotificationId());
+            dto = new NotificationFormDto().of(notification);
+            System.out.println("----------------------");
+            System.out.println(dto.getNotificationId());
+            System.out.println("----------------------");
+            notificationDtos.add(dto);
+        }
+
+        return notificationDtos;
     }
 
     public void deleteBoard(Long notificationId) {
