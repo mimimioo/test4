@@ -115,7 +115,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/");
 
         http.authorizeRequests()
-                .mvcMatchers("/", "/notificationBoard/**", "/members/**", "/item/**", "/images/**").permitAll()
+                .mvcMatchers("/", "/notificationBoard/**", "/members/**", "/item/**", "/images/**", "/members/new", "/favicon.ico").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .mvcMatchers("/members/mypage").authenticated()
                 .antMatchers("/nameElement").permitAll()
@@ -123,9 +123,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/csrf-endpoint").permitAll()
 
                 .anyRequest().authenticated();
-
-        // CSRF 토큰 비활성화
-//        http.csrf().disable();
 
 
 

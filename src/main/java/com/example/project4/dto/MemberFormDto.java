@@ -35,7 +35,8 @@ public class MemberFormDto {
     private String address;
 
 
-    /*엔티티와 dto 매핑을 지원해주는 매퍼 인스턴스 생성*/
+/*엔티티와 dto 매핑을 지원해주는 매퍼 인스턴스 생성*/
+
     private static ModelMapper modelMapper = new ModelMapper();
 
 
@@ -43,8 +44,9 @@ public class MemberFormDto {
         return modelMapper.map(this, Member.class);
     }
 
-    /*Notification엔티티와 NotificationFormDto를 매핑하여 dto를 리턴함.
+/*Notification엔티티와 NotificationFormDto를 매핑하여 dto를 리턴함.
      * 리턴된 dto는 모델에 담아 뷰에 뿌릴 수 있음*/
+
     public static MemberFormDto of(Member member){
         return modelMapper.map(member,MemberFormDto.class);
     }
