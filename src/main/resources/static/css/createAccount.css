@@ -140,7 +140,7 @@ body{
     transform: rotate(45deg);
 }
 
-.error {
+.fieldError {
     color: #bd2130;
     font-size: 15px;
     padding: 0 0 0 0;

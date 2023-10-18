@@ -3,16 +3,23 @@ package com.example.project4.service;
 import com.example.project4.dto.MemberFormDto;
 import com.example.project4.entity.Member;
 import com.example.project4.repository.MemberRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,5 +66,12 @@ public class MemberService implements UserDetailsService {
         // 데이터베이스에서 데이터 가져오는 로직
         return memberRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Member not found"));
     }
-}
+
+    //이메일 중복
+    public boolean isEmailDuplicate(String email) {
+        Optional<Member> findMember = memberRepository.findByEmail(email);
+        return findMember.isPresent(); // 이미 가입된 이메일이 존재하면 true 반환, 그렇지 않으면 false 반환
+    }
+
+    }
 

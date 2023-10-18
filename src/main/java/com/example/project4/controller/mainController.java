@@ -25,6 +25,7 @@ public class mainController {
         model.addAttribute("notices", notices);
 
         return "main";
+
     }
 
 }

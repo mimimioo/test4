@@ -25,8 +25,7 @@ public class AdminController {
 
     @Autowired
     private BoardService boardService;
-    @Autowired
-    private MemberService memberService;
+
     /*게시글 작성 폼 이동*/
     @GetMapping(value="/admin/notificationBoard/new")
     public String notificationForm(Model model) {
