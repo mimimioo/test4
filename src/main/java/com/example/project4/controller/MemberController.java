@@ -1,10 +1,12 @@
 package com.example.project4.controller;
 
+import com.example.project4.dto.NotificationFormDto;
 import com.example.project4.entity.Member;
 import com.example.project4.dto.MemberFormDto;
+import com.example.project4.entity.Notification;
 import com.example.project4.repository.MemberRepository;
+import com.example.project4.service.BoardService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.List;
 
 @RequestMapping("/members")
 @Controller
@@ -25,15 +28,20 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
     private final MemberService memberService;
     private final MemberRepository memberRepository;
+    private final BoardService boardService;
+
     @GetMapping(value = "/mypage")
     public String myPage(Model model) {
 
         try {
             // 현재 사용자의 이메일 가져오기
             String email = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-
             Member member = memberService.getMemberData(email);
+
+            List<NotificationFormDto> notificationFormDtos = boardService.notificationListLoad(email);
+//            뷰에 데이터 뿌리기
             model.addAttribute("myPage", member);
+            model.addAttribute("notificationFormDtos", notificationFormDtos);
             return "member/mypage"; // 정보 출력 폼
         } catch (EntityNotFoundException ex) {
             // 회원을 찾을 수 없는 경우에 대한 예외 처리해서 오류페이지로 넘기기
