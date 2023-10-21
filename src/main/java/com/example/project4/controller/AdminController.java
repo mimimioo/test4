@@ -63,33 +63,23 @@ public class AdminController {
             /* 방문자의 경우 좋아요 표시 빈하트 */
             /* 유저의 경우 좋아요 표시는 DB에 저장된 데이터에 따라 반환하기 */
             /* 방문자와 유저는 시큐리티로 분리하기 */
-            NotificationFormDto notificationFormDto = boardService.notificationDetail(notificationId);
-            System.out.println("notificationId : " + notificationId);
-            System.out.println("notificationFormDto getTitle : " + notificationFormDto.getTitle());
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            System.out.println("authentication 전 : " );
-            if (authentication.isAuthenticated()) {
-                System.out.println("authentication true  일경우 : " );
+            NotificationFormDto notificationFormDto;
+            if(principal!=null) {
                 notificationFormDto = boardService.like_count_load(notificationId, principal.getName());
-                System.out.println("notificationFormDto getLike_count : " + notificationFormDto.getLike_count());
-                System.out.println("authentication true  일경우 , 조회 후. : " );
+            } else {
+                notificationFormDto = boardService.notificationDetail(notificationId);
+                notificationFormDto.setLiked(false);
             }
-            System.out.println("모델 속성 notificationFormDto 실행전 " );
-            model.addAttribute("notificationFormDto", notificationFormDto);
-            System.out.println("모델 속성 notificationFormDto  실행후 " );
+//              List<Reply> replies = replyService.getRepliesByBoardId(notificationId);
 
-//            List<Reply> replies = replyService.getRepliesByBoardId(notificationId);
-//            model.addAttribute("replies", replies);
-            System.out.println("모델 속성 replyFormDto 실행전 " );
-            model.addAttribute("replyFormDto", new ReplyFormDto()); // 추가: 댓글 입력 폼을 초기화
-            System.out.println("모델 속성 replyFormDto 실행후 " );
+//              model.addAttribute("replies", replies);
+                model.addAttribute("notificationFormDto", notificationFormDto);
+                model.addAttribute("replyFormDto", new ReplyFormDto()); // 추가: 댓글 입력 폼을 초기화
         } catch (EntityNotFoundException e) {
-            System.out.println("오류 발생 후  " );
             model.addAttribute("errorMessage", "게시글을 찾을 수 없습니다.");
             model.addAttribute("notificationFormDto", new NotificationFormDto());
             return "redirect:/";
         }
-        System.out.println("정상 동작 후 뷰 가기 전  " );
         return "board/notice_board";
     }
 
@@ -105,11 +95,7 @@ public class AdminController {
             // 오류 처리 코드를 추가하세요.
             return "redirect:/notificationBoard/" + notificationId;
         }
-        System.out.println("==============================================");
-        System.out.println(replyFormDto.getTitle());
-        System.out.println(replyFormDto.getContent());
         replyFormDto.setEmail(principal.getName());
-        System.out.println(replyFormDto.getEmail());
 
         // Reply 저장
         replyFormDto=replyService.saveReply(replyFormDto);
@@ -160,16 +146,11 @@ public class AdminController {
     @PostMapping(value="/notificationBoard/{notificationId}/like")
     @ResponseBody
     public NotificationFormDto likeInfo(@RequestBody Long data, @PathVariable("notificationId") Long notificationId, Model model, Principal principal) {
-        System.out.println("요청 도착함");
         try{
             NotificationFormDto notificationFormDto = boardService.notificationDetail(notificationId);
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if(authentication.isAuthenticated()) {
                 notificationFormDto = boardService.like_count(data, notificationId, principal.getName());
-                System.out.println("요청 성공 결과 --------");
-//                System.out.println(notificationFormDto.isLike());
-                System.out.println(notificationFormDto.getLike_count());
-                System.out.println("요청 성공 결과 --------");
                 return notificationFormDto;
             }
             /* 게시글 조회 시*/
@@ -179,7 +160,6 @@ public class AdminController {
         } catch(EntityNotFoundException e) {
             model.addAttribute("errorMessage", "게시글을 찾을 수 없습니다.");
             model.addAttribute("notificationFormDto", new NotificationFormDto());
-            System.out.println("트라이 캐치 오류 발생");
         }
         return new NotificationFormDto();
     }

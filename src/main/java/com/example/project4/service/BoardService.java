@@ -9,6 +9,7 @@ import com.example.project4.repository.MemberRepository;
 import com.example.project4.repository.Notice_boardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -127,5 +128,13 @@ public class BoardService {
         }
 
         return notificationFormDto;
+    }
+
+    public List<NotificationFormDto> findByCreateBy(String name) {
+        List<NotificationFormDto> notificationFormDtos = new ArrayList<>();
+        for(Notification notification : boardRepository.findByCreatedBy(name)) {
+            notificationFormDtos.add(NotificationFormDto.of(notification));
+        }
+        return notificationFormDtos;
     }
 }
