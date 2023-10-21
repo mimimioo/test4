@@ -75,7 +75,7 @@ body{
     pointer-events: none;
     transition: 0.3s;
 }
-:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box, .zip_box, .detail_box) .input_box.focused{
+:where(.login_form .id_box,.pw_box,.name_box,.pw_confirm_box,.email_box, .zip_box) .input_box.focused{
     background-color: #fff;
     height: 15px;
     width: auto;
@@ -111,34 +111,35 @@ body{
     border-radius: 10px;
 }
 
-.tooltip {
-    position: absolute;
-    font-size: 12px;
-    padding: 10px;
-    right: -210px;
-    top: -21px;
-    width: 200px;
-    height: 70px;
-    background-color: #777;
-    color: #fff;
-    box-shadow: 0 0 5px 0 dodgerblue;
-    z-index: 22;
-}
-.tooltip.hidden{
-    visibility: hidden;
-}
-.tooltip::after{
-    content: '';
-    z-index: 1;
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: dodgerblue;
-    box-shadow: 0 0 5px 0 dodgerblue;
-    right: 195px;
-    top: 30px;
-    transform: rotate(45deg);
-}
+/* 사용 안해서 주석 처리 해놓음 */
+/*.tooltip {*/
+/*    position: absolute;*/
+/*    font-size: 12px;*/
+/*    padding: 10px;*/
+/*    right: -210px;*/
+/*    top: -21px;*/
+/*    width: 200px;*/
+/*    height: 70px;*/
+/*    background-color: #777;*/
+/*    color: #fff;*/
+/*    box-shadow: 0 0 5px 0 dodgerblue;*/
+/*    z-index: 22;*/
+/*}*/
+/*.tooltip.hidden{*/
+/*    visibility: hidden;*/
+/*}*/
+/*.tooltip::after{*/
+/*    content: '';*/
+/*    z-index: 1;*/
+/*    position: absolute;*/
+/*    width: 10px;*/
+/*    height: 10px;*/
+/*    background-color: dodgerblue;*/
+/*    box-shadow: 0 0 5px 0 dodgerblue;*/
+/*    right: 195px;*/
+/*    top: 30px;*/
+/*    transform: rotate(45deg);*/
+/*}*/
 
 .fieldError {
     color: #bd2130;

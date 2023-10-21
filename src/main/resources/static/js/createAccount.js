@@ -10,29 +10,10 @@ $(document).ready(function() {
     const namePlaceholder = document.getElementById('name_placeholder');
     const pwCPlaceholder = document.getElementById('pw_C_placeholder');
     const emailPlaceholder = document.getElementById('email_placeholder');
-    const tooltip_name = document.getElementById('tooltip_name');
-    const tooltip_Address = document.getElementById('tooltip_Address');
-    const tooltip_pw = document.getElementById('tooltip_pw');
-    const tooltip_pwC = document.getElementById('tooltip_pwC');
-    const tooltip_email = document.getElementById('tooltip_email');
-
-    // const inputZipcode = document.getElementById('zipCode');
-    // const zipcodePlaceholder = document.getElementById('zipcode_placeholder')
-    // const tooltip_zipcode = document.getElementById('tooltip_zipcode');
-    //
-    // const inputDetailAddress = document.getElementById('detail_Address');
-    // const detailPlaceholder = document.getElementById('detail_placeholder')
-    // const tooltip_detail = document.getElementById('tooltip_detail');
-
-    console.log("동작준비 완료");
-
-    // console.log(inputAddress);
-
 
     inputName.addEventListener('focus', () => {
-
+        console.log("포커스 실행됨")
         $(namePlaceholder).addClass('focused');
-        $(tooltip_name).removeClass('hidden');
     });
     inputName.addEventListener('blur', () => {
         if(inputName.value==null || inputName.value=='') {
@@ -40,36 +21,7 @@ $(document).ready(function() {
         } else {
             $(namePlaceholder).addClass('focused');
         }
-        $(tooltip_name).addClass('hidden');
     });
-
-    // inputZipcode.addEventListener('focus', () => {
-    //     $(zipcodePlaceholder).addClass('focused');
-    //     $(tooltip_zipcode).removeClass('hidden');
-    // });
-    // inputZipcode.addEventListener('blur', () => {
-    //     if(inputZipcode.value==null || inputZipcode.value=='') {
-    //         $(zipcodePlaceholder).removeClass('focused');
-    //     } else {
-    //         $(zipcodePlaceholder).addClass('focused');
-    //     }
-    //     $(tooltip_zipcode).addClass('hidden');
-    // });
-    //
-    // inputDetailAddress.addEventListener('focus', () => {
-    //     $(detailPlaceholder).addClass('focused');
-    //     $(tooltip_detail).removeClass('hidden');
-    // });
-    // inputDetailAddress.addEventListener('blur', () => {
-    //     if(inputDetailAddress.value==null || inputDetailAddress.value=='') {
-    //         $(detailPlaceholder).removeClass('focused');
-    //     } else {
-    //         $(detailPlaceholder).addClass('focused');
-    //     }
-    //     $(tooltip_detail).addClass('hidden');
-    // });
-    //
-    //
     inputAddress.addEventListener('focus', () => {
         $(address_placeholder).addClass('focused');
         $(address_placeholder).removeClass('hidden');
@@ -80,12 +32,10 @@ $(document).ready(function() {
         } else {
             $(address_placeholder).addClass('focused');
         }
-        $(tooltip_Address).addClass('hidden');
     });
     
     inputPW.addEventListener('focus', () => {
         $(pwPlaceholder).addClass('focused');
-        $(tooltip_pw).removeClass('hidden');
     });
     inputPW.addEventListener('blur', () => {
         if(inputPW.value==null || inputPW.value=='') {
@@ -93,12 +43,10 @@ $(document).ready(function() {
         } else {
             $(pwPlaceholder).addClass('focused');
         }
-        $(tooltip_pw).addClass('hidden');
     });
 
     inputPW_C.addEventListener('focus', () => {
         $(pwCPlaceholder).addClass('focused');
-        $(tooltip_pwC).removeClass('hidden');
     });
     inputPW_C.addEventListener('blur', () => {
         if(inputPW_C.value==null || inputPW_C.value=='') {
@@ -106,13 +54,11 @@ $(document).ready(function() {
         } else {
             $(pwCPlaceholder).addClass('focused');
         }
-        $(tooltip_pwC).addClass('hidden');
     });
 
     inputEmail.addEventListener('focus', () => {
         console.log("실행됨");
         $(emailPlaceholder).addClass('focused');
-        $(tooltip_email).removeClass('hidden');
     });
     inputEmail.addEventListener('blur', () => {
         console.log("실행됨");
@@ -121,7 +67,6 @@ $(document).ready(function() {
         } else {
             $(emailPlaceholder).addClass('focused');
         }
-        $(tooltip_email).addClass('hidden');
     });
 
 
@@ -144,9 +89,5 @@ $(document).ready(function() {
 
     password.onchange = validatePassword;
     confirmPassword.onkeyup = validatePassword;
-
-
-
-
 });
 

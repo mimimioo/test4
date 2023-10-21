@@ -10,6 +10,30 @@
     <div class="main_container">
         <h3 class="main_title">인기글</h3>
         <div class="best_board flex">
+            <div th:each="popular_post : ${popular_post.content}" class="review">
+                <a th:href="@{/notificationBoard/__${popular_post.notificationId}__}">
+                    <img th:src="@{/images/고양이3 (2).jpg}" class="thumbnail" />
+                    <div class="board_info">
+                        <div class="user" th:text="${popular_post.name}">작성자</div>
+                        <div class="title" th:text="${popular_post.title}">제목입니다</div>
+                        <div class="info_date_join">
+                            <div class="created_date" th:text="${popular_post.getFormattedRegTime()}">2023.01.01</div>
+                            <div class="created_date joinNum" th:text="'조회 ' + ${popular_post.view_count}"></div>
+                        </div>
+                        <div class="like" th:text="${popular_post.like_count}">10000</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+        <h3 class="main_title">최신글</h3>
+        <div class="board flex">
+
+        </div>
+
+        <h3 class="main_title">공지사항</h3>
+        <div class="best_board flex">
             <div th:each="notice : ${notices.content}" class="review">
                 <a th:href="@{/notificationBoard/__${notice.notificationId}__}">
                     <img th:src="@{/images/고양이3 (2).jpg}" class="thumbnail" />
@@ -24,12 +48,6 @@
                     </div>
                 </a>
             </div>
-        </div>
-
-
-        <h3 class="main_title">최신글</h3>
-        <div class="board flex">
-
         </div>
     </div>
 </div>

@@ -30,7 +30,6 @@ public class Member extends BaseEntity{
     @Column(unique = true)
     private String email;
     private String password;
-    private String update_pw_confirm;
     private String address;
     private String detail_Address;
     @Column(name = "zipCode")
@@ -86,3 +85,6 @@ public class Member extends BaseEntity{
     }
 
 }
+
+
+
