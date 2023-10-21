@@ -20,6 +20,14 @@ public class MainService {
     @Transactional(readOnly = true)
     public Page<NotificationFormDto> getMainNoticePage(Pageable pageable){
         ModelMapper modelMapper = new ModelMapper();
+        Page<Notification> notifications = noticeBoardRepository.findAll(pageable);
+        Page<NotificationFormDto> notificationsDto = notifications.map(notification -> modelMapper.map(notification, NotificationFormDto.class));
+
+        return notificationsDto;
+    }
+    @Transactional(readOnly = true)
+    public Page<NotificationFormDto> getPopularBoard(Pageable pageable){
+        ModelMapper modelMapper = new ModelMapper();
         Page<Notification> notifications = noticeBoardRepository.findByLike_count(pageable);
         Page<NotificationFormDto> notificationsDto = notifications.map(notification -> modelMapper.map(notification, NotificationFormDto.class));
 

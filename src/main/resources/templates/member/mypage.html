@@ -19,28 +19,14 @@
         <h1 class="title">마이페이지</h1>
         <div class="info_wrapper">
             <div class="my_info_wrapper">
-<!--                <span class="sub_title"></span>-->
                 <div class="my_info">
                     <p class="text_css">이름</p>
                     <input type="text" class="form-control" th:field="*{name}" />
-<!--                    <input type="text" class="form-control"  th:value="${myPage.name}" />-->
                 </div>
                 <div class="my_info">
                     <div class="text_css">e-mail</div>
                     <input type="text" class="form-control"  th:value="${myPage.email}" th:readonly="readonly" />
                 </div>
-<!--                <div class="my_info">-->
-<!--                    <p class="text_css">우편번호</p>-->
-<!--                    <span class="text_data">12345</span>-->
-<!--                </div>-->
-<!--                <div class="my_info">-->
-<!--                    <p class="text_css">주소</p>-->
-<!--                    <span class="text_data">집</span>-->
-<!--                </div>-->
-<!--                <div class="my_info">-->
-<!--                    <p class="text_css">상세주소</p>-->
-<!--                    <span class="text_data">123</span>-->
-<!--                </div>-->
 
                 <div class="my_info">
                     <div class="text_css">비밀번호 변경</div>
@@ -52,31 +38,11 @@
                 </div>
                 <div class="my_info">
                     <p class="text_css">가입일</p>
-                    <!--                    <input type="text" class="form-control" th:value="${#dates.format(myPage.reg_time, 'yyyy-MM-dd HH:mm:ss', null)}" th:readonly="readonly" />-->
                     <input type="text" class="form-control" th:field="*{reg_time}" th:readonly="readonly" />
                 </div>
                 <button type="submit" class="btn btn-primary" onclick="return confirm('수정하시겠습니까?')">수정하기</button>
             </div>
         </div>
-<!--        </form>-->
-<!--                <form action="#" method="post" class="update_form">-->
-                    <!-- 변경할 비밀번호와 비밀번호 확인은 JS에서 비교 후 전송 -->
-
-<!--                    <div class="update_form_input">-->
-<!--                        <div class="text_css">비밀번호 변경</div>-->
-<!--                        <input type="password" id="update_pw" name="update_pw"/>-->
-<!--                    </div>-->
-<!--                    <div class="update_form_input">-->
-<!--                        <div class="text_css">비밀번호 확인</div>-->
-<!--                        <input type="password" id="update_pw_confirm"/>-->
-<!--                    </div>-->
-<!--                    <div class="update_form_input">-->
-<!--                        <div class="text_css">이메일</div>-->
-<!--                        <input type="email" id="update_email"/>-->
-<!--                    </div>-->
-<!--                    <button type="submit" class="btn btn-primary" onclick="return modifyCheckAll()">수정하기</button>-->
-<!--                </form>-->
-<!--            </div>-->
         </div>
         <div class="my_review" sec:authorize="hasRole('USER') or hasRole('ADMIN')">
             <h5 style="margin-left: 10px;">리뷰 게시글</h5>
@@ -98,13 +64,13 @@
         <div class="my_review" sec:authorize="hasRole('ADMIN')">
             <h5 style="margin-left: 10px;">공지사항</h5>
             <div class="classification_head">
-                <span class="review_number">게시글ID</span>
+                <span class="review_number">ID</span>
                 <span class="review_title">제목</span>
                 <span class="review_day">작성일</span>
             </div>
             <div class="classification_data" th:each="dto : ${notificationFormDtos}">
                 <span class="review_number"  th:text="${dto.notificationId}">1</span>
-                <a href="#" class="review_title" th:text="${dto.title}">제목입니다.</a>
+                <a th:href="@{/notificationBoard/__${dto.notificationId}__}" class="review_title" th:text="${dto.title}">제목입니다.</a>
                 <span class="review_day" th:text="${dto.getFormattedRegTime()}">2023.01.01</span>
                 <div class="ud_btn">
                     <a th:href="@{'/admin/notificationBoard/' + ${dto.notificationId}}">수정</a>

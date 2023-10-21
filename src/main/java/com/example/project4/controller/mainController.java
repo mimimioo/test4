@@ -33,7 +33,7 @@ public class mainController {
         );
         /* 페이지네이션 설명 : 5개 데이터로 이루어진 0 페이지를 최신순으로 불러옴/ 인기글 조회하기 */
         Pageable popularPost_pageable = PageRequest.of(0, 5, popularPost_sort);
-        Page<NotificationFormDto> popular_post = mainService.getMainNoticePage(popularPost_pageable);
+        Page<NotificationFormDto> popular_post = mainService.getPopularBoard(popularPost_pageable);
         /* 페이지네이션 설명 : 15개 데이터로 이루어진 0 페이지를 최신순으로 불러옴/ 일반 게시글 조회하기 */
         Pageable board_pageable = PageRequest.of(0, 15, board_sort);
         Page<NotificationFormDto> boards = mainService.getMainNoticePage(board_pageable);
