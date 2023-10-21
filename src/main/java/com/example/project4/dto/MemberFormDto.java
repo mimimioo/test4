@@ -26,16 +26,17 @@ public class MemberFormDto {
     @Length(min=8, max=16, message = "비밀번호는 8자 이상, 16자 이하로 입력해주세요")
     private String password;
 
+    private String update_pw;
 
-//    @NotNull(message = "우편번호는 필수 입력 값입니다")
+    //    @NotNull(message = "우편번호는 필수 입력 값입니다")
     private int zipCode;
-//    @NotEmpty(message = "상세 주소는 필수 입력 값입니다.")
+    //    @NotEmpty(message = "상세 주소는 필수 입력 값입니다.")
     private String detail_Address;
-//    @NotEmpty(message = "주소는 필수 입력 값입니다.")
+        @NotEmpty(message = "주소는 필수 입력 값입니다.")
     private String address;
 
 
-/*엔티티와 dto 매핑을 지원해주는 매퍼 인스턴스 생성*/
+    /*엔티티와 dto 매핑을 지원해주는 매퍼 인스턴스 생성*/
 
     private static ModelMapper modelMapper = new ModelMapper();
 
@@ -44,19 +45,10 @@ public class MemberFormDto {
         return modelMapper.map(this, Member.class);
     }
 
-/*Notification엔티티와 NotificationFormDto를 매핑하여 dto를 리턴함.
+    /*Notification엔티티와 NotificationFormDto를 매핑하여 dto를 리턴함.
      * 리턴된 dto는 모델에 담아 뷰에 뿌릴 수 있음*/
 
     public static MemberFormDto of(Member member){
         return modelMapper.map(member,MemberFormDto.class);
     }
-
-    public class CheckEmailRequest {
-        private String email;
-        public String getEmail() {
-            return email;
-        }
-        // Getter and setter methods
-    }
 }
-

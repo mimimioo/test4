@@ -27,7 +27,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
-
     public Member saveMember (Member member){
         validateDuplicateMember(member);
         return memberRepository.save(member);
@@ -39,6 +38,19 @@ public class MemberService implements UserDetailsService {
             throw new IllegalStateException("이미 가입되어 있습니다.");
         }
     }
+    public void checkEmailDuplicate(String email) {
+        if (memberRepository.existsByEmail(email)) {
+            throw new IllegalStateException("중복된 이메일 주소입니다.");
+        }
+    }
+
+
+    public Member getMemberData(String email) {
+        // 데이터베이스에서 데이터 가져오는 로직
+        return memberRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Member not found"));
+    }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
@@ -52,26 +64,21 @@ public class MemberService implements UserDetailsService {
                 .roles(member.getRole().toString())
                 .build();
 
+
     }
 
+    @Transactional
+    public void deleteMember(String email) {
+        // 이 메서드에서 회원 정보 및 관련 정보를 삭제하는 로직을 구현합니다.
+        // MemberRepository를 사용하여 데이터베이스에서 회원 정보를 가져와 삭제하거나 관련 정보도 삭제할 수 있습니다.
 
-    public MemberFormDto readMember(String email) throws UsernameNotFoundException{
+        // 예시: 이메일을 기반으로 회원 정보를 가져온 후 삭제
         Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
-        MemberFormDto memberFormDto = MemberFormDto.of(member);
-        return memberFormDto;
+        if (member != null) {
+            // 회원 정보를 삭제
+            memberRepository.delete(member);
+            // 다른 관련 정보도 삭제할 수 있습니다.
+        }
     }
-
-
-    public Member getMemberData(String email) {
-        // 데이터베이스에서 데이터 가져오는 로직
-        return memberRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Member not found"));
-    }
-
-    //이메일 중복
-    public boolean isEmailDuplicate(String email) {
-        Optional<Member> findMember = memberRepository.findByEmail(email);
-        return findMember.isPresent(); // 이미 가입된 이메일이 존재하면 true 반환, 그렇지 않으면 false 반환
-    }
-
     }
 
