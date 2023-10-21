@@ -133,14 +133,14 @@ public class AdminController {
             return "board/notice_board";
         }
 
-        return "redirect:/";
+        return "redirect:/members/mypage";
     }
     /*게시글 삭제*/
     @GetMapping(value="/admin/notificationBoard/delete/{notificationId}")
     public String notificationDelete(@PathVariable("notificationId") Long notificationId) {
         boardService.deleteBoard(notificationId);
 
-        return "redirect:/";
+        return "redirect:/members/mypage";
     }
 
     @PostMapping(value="/notificationBoard/{notificationId}/like")
