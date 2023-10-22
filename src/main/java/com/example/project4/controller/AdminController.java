@@ -86,7 +86,7 @@ public class AdminController {
     @PostMapping(value = "/notificationBoard/{notificationId}/addReply")
     public String addReply(
             @PathVariable("notificationId") Long notificationId,
-            @ModelAttribute("replyFormDto") ReplyFormDto replyFormDto,
+            @RequestBody ReplyFormDto replyFormDto,
             BindingResult bindingResult,
             Principal principal,
             Model model) {
@@ -98,7 +98,8 @@ public class AdminController {
         replyFormDto.setEmail(principal.getName());
 
         // Reply 저장
-        replyFormDto=replyService.saveReply(replyFormDto);
+        replyService.saveReply(replyFormDto);
+        //해야할 것 : 게시글 아이디에 따른 댓글 조회시 반환되는 리스트를 DTO에 담기
         model.addAttribute("replyFormDto", replyFormDto);
 
         return "redirect:/notificationBoard/" + notificationId;

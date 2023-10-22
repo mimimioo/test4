@@ -19,24 +19,13 @@ import java.util.List;
 /* BaseEntity는 작성일에 대한 정보를 저장 */
 public class Notification extends BaseEntity {
     @Id
-    @Column(name="board_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long notificationId;            //공지글 코드
-
-    @Column(name="user_name")
     private String name;       //이름
-
-    @Column(name="title")
     private String title;       //제목
-
-    @Column(name="content")
     @Lob
     private String content;     //공지글 내용
-
-    @Column(name="views")
     private Long view_count;    //조회수
-
-    @Column(name="likes")
     private Long like_count;    //좋아요 수
 
 

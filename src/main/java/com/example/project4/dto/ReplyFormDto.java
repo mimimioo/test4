@@ -13,23 +13,13 @@ import java.time.format.DateTimeParseException;
 @Getter
 @Setter
 public class ReplyFormDto {
-    private Long replyId;
-
     private String email;
-
     @NotBlank(message = "댓글 제목을 입력해주세요.")
     private String title;
-
     @NotBlank(message = "댓글 내용을 입력해주세요.")
     private String content;
-
     private String createBy;
-
     private String reg_time;
-
-    // Getter and Setter methods
-
-
 
     public String getFormattedRegTime() {
         if (this.reg_time != null) {
