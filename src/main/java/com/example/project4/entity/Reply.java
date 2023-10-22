@@ -12,17 +12,13 @@ public class Reply extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String contents;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "notificationId")
+    private Notification notification;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "notification_id")
-//    private Notification notification;
-
-    // 다른 필드, 생성자, 게터/세터, 메서드 등 추가
 
 //    public Reply(String title, String contents, Notification notification) {
 //        this.title = title;
